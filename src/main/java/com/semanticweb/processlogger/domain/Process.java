@@ -13,4 +13,16 @@ public class Process {
         this.property = property;
         this.value = value;
     }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

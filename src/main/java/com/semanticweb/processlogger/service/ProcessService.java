@@ -22,4 +22,8 @@ public class ProcessService {
 
         return processRepository.get(queryString);
     }
+
+    public void record(List<Process> processes) {
+        processRepository.save(processes);
+    }
 }

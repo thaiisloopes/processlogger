@@ -25,4 +25,14 @@ public class ProcessRepository {
                 requireNonNull(bindingSet.get("o")).toString()
         ));
     }
+
+    public void save(List<Process> processes) {
+        processes.forEach(
+                process -> snarlTemplate.add(
+                        process.getResource(),
+                        process.getProperty(),
+                        process.getValue()
+                )
+        );
+    }
 }

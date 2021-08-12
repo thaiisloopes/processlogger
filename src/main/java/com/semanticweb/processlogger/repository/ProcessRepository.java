@@ -26,12 +26,14 @@ public class ProcessRepository {
         ));
     }
 
-    public void save(List<Process> processes) {
+    public void save(List<List<Process>> processes) {
         processes.forEach(
-                process -> snarlTemplate.add(
-                        process.getResource(),
-                        process.getProperty(),
-                        process.getValue()
+                process -> process.forEach( process1 ->
+                        snarlTemplate.add(
+                                process1.getResource(),
+                                process1.getProperty(),
+                                process1.getValue()
+                        )
                 )
         );
     }

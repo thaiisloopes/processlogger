@@ -1,6 +1,7 @@
 package com.semanticweb.processlogger.controller;
 
 import com.semanticweb.processlogger.domain.Process;
+import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.repository.ProcessRepository;
 import com.semanticweb.processlogger.service.ProcessService;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class ProcessController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllProcess(@RequestBody List<Process> processes) {
+    public ResponseEntity recordAllProcess(@RequestBody List<ProcessExecution> processes) {
         logger.info("Calling service to record all process executions");
         processService.record(processes);
 

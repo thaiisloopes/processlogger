@@ -5,17 +5,18 @@ import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.repository.ProcessRepository;
 import com.stardog.stark.BNode;
 import com.stardog.stark.Values;
-import com.stardog.stark.impl.StatementImpl;
+import org.apache.jena.rdf.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
+import static org.apache.jena.rdf.model.ModelFactory.createOntologyModel;
 
 @Service
 public class ProcessService {
@@ -25,10 +26,20 @@ public class ProcessService {
     @Autowired
     private ProcessRepository processRepository;
 
-    public List<Process> getProcess() {
+    public Model getProcess() {
         String queryString = "prefix foaf: <http://xmlns.com/foaf/0.1/> select ?s ?p ?o where { ?s ?p ?o. }";
 
-        return processRepository.get(queryString);
+        Model model = ModelFactory.createDefaultModel();
+        List<Process> processes = processRepository.get(queryString);
+        processes.stream().forEach(
+                process -> {
+                    Resource resource = model.createResource(process.getResource());
+                    Property property = model.createProperty(process.getProperty());
+                    model.add(resource, property, process.getValue());
+                }
+        );
+
+        return model;
     }
 
     public void record(List<ProcessExecution> processes) {

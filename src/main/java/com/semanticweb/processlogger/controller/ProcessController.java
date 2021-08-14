@@ -1,8 +1,6 @@
 package com.semanticweb.processlogger.controller;
 
-import com.semanticweb.processlogger.domain.Process;
 import com.semanticweb.processlogger.domain.ProcessExecution;
-import com.semanticweb.processlogger.repository.ProcessRepository;
 import com.semanticweb.processlogger.service.ProcessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 @RestController
@@ -23,10 +23,13 @@ public class ProcessController {
     private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
 
     @GetMapping
-    @ResponseBody
-    public List<Process> getAllProcess() {
+    public String getAllProcess() {
         logger.info("Calling service to get all recorded process executions");
-        return processService.getProcess();
+
+        OutputStream stream = new ByteArrayOutputStream() ;
+        processService.getProcess().write(stream, "TURTLE");
+
+        return stream.toString();
     }
 
     @PostMapping

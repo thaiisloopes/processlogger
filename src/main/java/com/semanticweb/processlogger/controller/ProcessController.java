@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -35,7 +36,27 @@ public class ProcessController {
     @PostMapping
     public ResponseEntity recordAllProcess(@RequestBody List<ProcessExecution> processes) {
         logger.info("Calling service to record all process executions");
+
         processService.record(processes);
+
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteProcess(@RequestBody List<ProcessExecution> processes,
+                                        @RequestParam String graph) {
+        logger.info("Calling service to delete a list of process execution");
+
+        processService.deleteProcessExecutionFrom(processes, graph);
+
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/graph")
+    public ResponseEntity deleteGraph(@RequestParam String graph) {
+        logger.info("Calling service to delete a complete graph");
+
+        processService.deleteGraph(graph);
 
         return ResponseEntity.ok(HttpStatus.OK);
     }

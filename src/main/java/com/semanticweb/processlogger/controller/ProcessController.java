@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.QueryParam;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
@@ -24,11 +23,13 @@ public class ProcessController {
     private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
 
     @GetMapping
-    public String getAllProcess() {
+    public String getAllProcess(@RequestHeader("Accept") String accept) {
+        String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
+
         logger.info("Calling service to get all recorded process executions");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        processService.getProcess().write(stream, "TURTLE");
+        processService.getProcess().write(stream, format);
 
         return stream.toString();
     }
@@ -39,7 +40,7 @@ public class ProcessController {
 
         processService.record(processes);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping

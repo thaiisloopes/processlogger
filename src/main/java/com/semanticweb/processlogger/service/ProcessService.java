@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
-import static org.apache.jena.rdf.model.ModelFactory.createOntologyModel;
 
 @Service
 public class ProcessService {

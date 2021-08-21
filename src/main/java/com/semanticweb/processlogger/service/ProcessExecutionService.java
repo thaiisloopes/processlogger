@@ -2,7 +2,7 @@ package com.semanticweb.processlogger.service;
 
 import com.semanticweb.processlogger.domain.Process;
 import com.semanticweb.processlogger.domain.ProcessExecution;
-import com.semanticweb.processlogger.repository.ProcessRepository;
+import com.semanticweb.processlogger.repository.ProcessExecutionRepository;
 import com.stardog.stark.BNode;
 import com.stardog.stark.Values;
 import org.apache.jena.rdf.model.*;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 import static java.util.Arrays.asList;
 
 @Service
-public class ProcessService {
+public class ProcessExecutionService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProcessService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionService.class);
 
     @Autowired
-    private ProcessRepository processRepository;
+    private ProcessExecutionRepository processExecutionRepository;
 
     public Model getProcess() {
         logger.info("Calling repository to get all recorded process execution");
@@ -30,7 +30,7 @@ public class ProcessService {
         String queryString = "prefix foaf: <http://xmlns.com/foaf/0.1/> select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();
-        List<Process> processes = processRepository.get(queryString);
+        List<Process> processes = processExecutionRepository.get(queryString);
         processes.stream().forEach(
                 process -> {
                     Resource resource = model.createResource(process.getResource());
@@ -49,7 +49,7 @@ public class ProcessService {
                 .map(this::buildProcessTriples)
                 .collect(Collectors.toList());
 
-        processRepository.save(processExecutionToEvent);
+        processExecutionRepository.save(processExecutionToEvent);
     }
 
     public void deleteProcessExecutionFrom(List<ProcessExecution> processes, String graph) {
@@ -59,13 +59,13 @@ public class ProcessService {
                 .map(this::buildProcessTriples)
                 .collect(Collectors.toList());
 
-        processRepository.deleteManyTriples(processExecutionToEvent, graph);
+        processExecutionRepository.deleteManyTriples(processExecutionToEvent, graph);
     }
 
     public void deleteGraph(String graph) {
         logger.info("Calling repository to delete a specific graph");
 
-        processRepository.deleteGraph(graph);
+        processExecutionRepository.deleteGraph(graph);
     }
 
     private List<Process> buildProcessTriples(ProcessExecution processExecution) {

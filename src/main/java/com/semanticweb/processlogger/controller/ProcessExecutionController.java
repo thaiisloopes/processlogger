@@ -1,7 +1,7 @@
 package com.semanticweb.processlogger.controller;
 
 import com.semanticweb.processlogger.domain.ProcessExecution;
-import com.semanticweb.processlogger.service.ProcessService;
+import com.semanticweb.processlogger.service.ProcessExecutionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/process")
-public class ProcessController {
+public class ProcessExecutionController {
 
     @Autowired
-    private ProcessService processService;
+    private ProcessExecutionService processExecutionService;
 
-    private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionController.class);
 
     @GetMapping
     public String getAllProcess(@RequestHeader("Accept") String accept) {
@@ -29,7 +29,7 @@ public class ProcessController {
         logger.info("Calling service to get all recorded process executions");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        processService.getProcess().write(stream, format);
+        processExecutionService.getProcess().write(stream, format);
 
         return stream.toString();
     }
@@ -38,7 +38,7 @@ public class ProcessController {
     public ResponseEntity recordAllProcess(@RequestBody List<ProcessExecution> processes) {
         logger.info("Calling service to record all process executions");
 
-        processService.record(processes);
+        processExecutionService.record(processes);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -48,7 +48,7 @@ public class ProcessController {
                                         @RequestParam String graph) {
         logger.info("Calling service to delete a list of process execution");
 
-        processService.deleteProcessExecutionFrom(processes, graph);
+        processExecutionService.deleteProcessExecutionFrom(processes, graph);
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class ProcessController {
     public ResponseEntity deleteGraph(@RequestParam String graph) {
         logger.info("Calling service to delete a complete graph");
 
-        processService.deleteGraph(graph);
+        processExecutionService.deleteGraph(graph);
 
         return ResponseEntity.ok(HttpStatus.OK);
     }

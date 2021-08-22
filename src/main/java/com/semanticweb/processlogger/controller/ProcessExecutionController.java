@@ -14,13 +14,13 @@ import java.io.OutputStream;
 import java.util.List;
 
 @RestController
-@RequestMapping("/process")
+@RequestMapping("/processExecution")
 public class ProcessExecutionController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionController.class);
 
     @Autowired
     private ProcessExecutionService processExecutionService;
-
-    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionController.class);
 
     @GetMapping
     public String getAllProcess(@RequestHeader("Accept") String accept) {

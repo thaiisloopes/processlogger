@@ -1,6 +1,6 @@
 package com.semanticweb.processlogger.service;
 
-import com.semanticweb.processlogger.domain.Process;
+import com.semanticweb.processlogger.domain.Triple;
 import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.repository.ProcessExecutionRepository;
 import com.stardog.stark.BNode;
@@ -30,12 +30,12 @@ public class ProcessExecutionService {
         String queryString = "prefix foaf: <http://xmlns.com/foaf/0.1/> select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();
-        List<Process> processes = processExecutionRepository.get(queryString);
-        processes.stream().forEach(
-                process -> {
-                    Resource resource = model.createResource(process.getResource());
-                    Property property = model.createProperty(process.getProperty());
-                    model.add(resource, property, process.getValue());
+        List<Triple> triples = processExecutionRepository.get(queryString);
+        triples.stream().forEach(
+                triple -> {
+                    Resource resource = model.createResource(triple.getResource());
+                    Property property = model.createProperty(triple.getProperty());
+                    model.add(resource, property, triple.getValue());
                 }
         );
 
@@ -45,7 +45,7 @@ public class ProcessExecutionService {
     public void record(List<ProcessExecution> processes) {
         logger.info("Calling repository to save a list of process execution");
 
-        List<List<Process>> processExecutionToEvent = processes.stream()
+        List<List<Triple>> processExecutionToEvent = processes.stream()
                 .map(this::buildProcessTriples)
                 .collect(Collectors.toList());
 
@@ -55,7 +55,7 @@ public class ProcessExecutionService {
     public void deleteProcessExecutionFrom(List<ProcessExecution> processes, String graph) {
         logger.info("Calling repository to delete a list of process execution");
 
-        List<List<Process>> processExecutionToEvent = processes.stream()
+        List<List<Triple>> processExecutionToEvent = processes.stream()
                 .map(this::buildProcessTriples)
                 .collect(Collectors.toList());
 
@@ -68,7 +68,7 @@ public class ProcessExecutionService {
         processExecutionRepository.deleteGraph(graph);
     }
 
-    private List<Process> buildProcessTriples(ProcessExecution processExecution) {
+    private List<Triple> buildProcessTriples(ProcessExecution processExecution) {
         BNode bnode = Values.bnode();
 
         return asList(
@@ -81,7 +81,7 @@ public class ProcessExecutionService {
         );
     }
 
-    private Process buildTriple(String resource, String property, String value) {
-        return new Process(resource, property, value);
+    private Triple buildTriple(String resource, String property, String value) {
+        return new Triple(resource, property, value);
     }
 }

@@ -13,8 +13,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
-@RequestMapping("/processExecution")
+@RequestMapping("/process-execution")
 public class ProcessExecutionController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionController.class);
@@ -38,9 +41,9 @@ public class ProcessExecutionController {
     public ResponseEntity recordAllProcess(@RequestBody List<ProcessExecution> processes) {
         logger.info("Calling service to record all process executions");
 
-        processExecutionService.record(processes);
+        List<ResourceCreationResponse> response = processExecutionService.record(processes);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(CREATED).body(response);
     }
 
     @DeleteMapping
@@ -50,7 +53,7 @@ public class ProcessExecutionController {
 
         processExecutionService.deleteProcessExecutionFrom(processes, graph);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(OK);
     }
 
     @DeleteMapping("/graph")
@@ -59,6 +62,6 @@ public class ProcessExecutionController {
 
         processExecutionService.deleteGraph(graph);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(OK);
     }
 }

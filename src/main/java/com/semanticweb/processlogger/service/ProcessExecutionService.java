@@ -1,5 +1,7 @@
 package com.semanticweb.processlogger.service;
 
+import com.github.f4b6a3.ulid.UlidCreator;
+import com.semanticweb.processlogger.controller.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Triple;
 import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.repository.ProcessExecutionRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +45,7 @@ public class ProcessExecutionService {
         return model;
     }
 
-    public void record(List<ProcessExecution> processes) {
+    public List<ResourceCreationResponse> record(List<ProcessExecution> processes) {
         logger.info("Calling repository to save a list of process execution");
 
         List<List<Triple>> processExecutionToEvent = processes.stream()
@@ -50,6 +53,24 @@ public class ProcessExecutionService {
                 .collect(Collectors.toList());
 
         processExecutionRepository.save(processExecutionToEvent);
+
+        return buildResourceCreationResponse(processExecutionToEvent);
+    }
+
+    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
+        List<ResourceCreationResponse> resources = new ArrayList<>();
+
+        triples.forEach(
+                tripleList -> tripleList.stream()
+                        .findFirst()
+                        .ifPresent(
+                                triple -> resources.add(
+                                        new ResourceCreationResponse(triple.getResource(), "")
+                                )
+                        )
+        );
+
+        return resources;
     }
 
     public void deleteProcessExecutionFrom(List<ProcessExecution> processes, String graph) {
@@ -69,15 +90,15 @@ public class ProcessExecutionService {
     }
 
     private List<Triple> buildProcessTriples(ProcessExecution processExecution) {
-        BNode bnode = Values.bnode();
+        String resourceUri = "http://www.example.com/process-execution/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(bnode.toString(), "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/NET/c4dm/event.owl#Event"),
-                buildTriple(bnode.toString(), "http://purl.org/NET/c4dm/event.owl#agent", processExecution.getResponsible()),
-                buildTriple(bnode.toString(), "http://purl.org/NET/c4dm/event.owl#product", processExecution.getProduct()),
-                buildTriple(bnode.toString(), "http://purl.org/NET/c4dm/event.owl#factor", processExecution.getFactor()),
-                buildTriple(bnode.toString(), "http://purl.org/NET/c4dm/event.owl#time", processExecution.getTime()),
-                buildTriple(bnode.toString(), "http://purl.org/NET/c4dm/event.owl#place", processExecution.getPlace())
+                buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/NET/c4dm/event.owl#Event"),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#agent", processExecution.getResponsible()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", processExecution.getProduct()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", processExecution.getFactor()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", processExecution.getTime()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", processExecution.getPlace())
         );
     }
 

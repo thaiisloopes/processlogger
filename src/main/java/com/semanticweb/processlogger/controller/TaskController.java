@@ -1,5 +1,6 @@
 package com.semanticweb.processlogger.controller;
 
+import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Task;
 import com.semanticweb.processlogger.service.TaskService;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/task")
@@ -38,8 +41,8 @@ public class TaskController {
     public ResponseEntity recordAllTasks(@RequestBody List<Task> tasks) {
         logger.info("Calling service to record all tasks");
 
-        taskService.save(tasks);
+        List<ResourceCreationResponse> response = taskService.save(tasks);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(CREATED).body(response);
     }
 }

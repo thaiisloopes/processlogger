@@ -1,5 +1,6 @@
 package com.semanticweb.processlogger.controller;
 
+import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.service.ProcessExecutionService;
 import com.semanticweb.processlogger.service.ProcessService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/process")
@@ -40,8 +43,8 @@ public class ProcessController {
     public ResponseEntity recordAllProcess(@RequestBody List<Process> processes) {
         logger.info("Calling service to record all processes");
 
-        processService.save(processes);
+        List<ResourceCreationResponse> response = processService.save(processes);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(CREATED).body(response);
     }
 }

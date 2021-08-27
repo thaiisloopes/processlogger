@@ -1,6 +1,7 @@
 package com.semanticweb.processlogger.service;
 
 import com.github.f4b6a3.ulid.UlidCreator;
+import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Triple;
 import com.semanticweb.processlogger.repository.ProcessRepository;
 import com.semanticweb.processlogger.domain.Process;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -49,7 +51,7 @@ public class ProcessService {
         return model;
     }
 
-    public void save(List<Process> processes) {
+    public List<ResourceCreationResponse> save(List<Process> processes) {
         logger.info("Calling repository to save a list of process");
 
         List<List<Triple>> processToTriples = processes.stream()
@@ -57,6 +59,24 @@ public class ProcessService {
                 .collect(toList());
 
         processRepository.save(processToTriples);
+
+        return buildResourceCreationResponse(processToTriples);
+    }
+
+    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
+        List<ResourceCreationResponse> resources = new ArrayList<>();
+
+        triples.forEach(
+                tripleList -> tripleList.stream()
+                        .findFirst()
+                        .ifPresent(
+                                triple -> resources.add(
+                                        new ResourceCreationResponse(triple.getResource(), "")
+                                )
+                        )
+        );
+
+        return resources;
     }
 
     private List<Triple> buildProcessTriples(Process process) {

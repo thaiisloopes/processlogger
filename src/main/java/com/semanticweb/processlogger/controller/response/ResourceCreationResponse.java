@@ -1,4 +1,4 @@
-package com.semanticweb.processlogger.controller;
+package com.semanticweb.processlogger.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 

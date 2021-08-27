@@ -1,12 +1,10 @@
 package com.semanticweb.processlogger.service;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.semanticweb.processlogger.controller.ResourceCreationResponse;
+import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Triple;
 import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.repository.ProcessExecutionRepository;
-import com.stardog.stark.BNode;
-import com.stardog.stark.Values;
 import org.apache.jena.rdf.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -6,4 +6,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 public class Agent {
 
     String name;
+
+    public String getName() {
+        return name;
+    }
 }

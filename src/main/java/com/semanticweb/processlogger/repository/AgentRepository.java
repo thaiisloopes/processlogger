@@ -3,7 +3,6 @@ package com.semanticweb.processlogger.repository;
 import com.semanticweb.processlogger.domain.Triple;
 import com.stardog.ext.spring.SnarlTemplate;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +29,7 @@ public class AgentRepository {
     }
 
     public void save(List<List<Triple>> triples) {
-        logger.info("Calling StarDog from SnarlTemplate to save equipments");
+        logger.info("Calling StarDog from SnarlTemplate to save agents");
 
         triples.forEach(
                 triple -> triple.forEach(triple1 ->

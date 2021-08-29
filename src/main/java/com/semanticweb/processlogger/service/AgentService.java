@@ -10,6 +10,7 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import static java.util.stream.Collectors.toList;
 import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 import static org.slf4j.LoggerFactory.getLogger;
 
+@Service
 public class AgentService {
 
     private static final Logger logger = getLogger(AgentService.class);
@@ -76,6 +78,9 @@ public class AgentService {
         String resourceUri = "http://www.example.com/agent/" + UlidCreator.getUlid();
 
         return asList(
+                buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/NET/c4dm/event.owl#agent"),
+                buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://xmlns.com/foaf/0.1/Person"),
+                buildTriple(resourceUri, "http://xmlns.com/foaf/0.1/name", agent.getName())
         );
     }
 

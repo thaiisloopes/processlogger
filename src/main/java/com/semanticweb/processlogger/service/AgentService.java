@@ -2,40 +2,37 @@ package com.semanticweb.processlogger.service;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
-import com.semanticweb.processlogger.domain.Equipment;
+import com.semanticweb.processlogger.domain.Agent;
 import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.EquipmentRepository;
+import com.semanticweb.processlogger.repository.AgentRepository;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 import static org.slf4j.LoggerFactory.getLogger;
 
-@Service
-public class EquipmentService {
+public class AgentService {
 
-    private static final Logger logger = getLogger(EquipmentService.class);
+    private static final Logger logger = getLogger(AgentService.class);
 
     @Autowired
-    private EquipmentRepository equipmentRepository;
+    private AgentRepository agentRepository;
 
-    public Model getEquipments() {
-        logger.info("Calling repository to get all recorded equipments");
+    public Model getAgents() {
+        logger.info("Calling repository to get all recorded agents");
 
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 
-        Model model = ModelFactory.createDefaultModel();
-        List<Triple> triples = equipmentRepository.get(queryString);
+        Model model = createDefaultModel();
+        List<Triple> triples = agentRepository.get(queryString);
         triples.forEach(
                 triple -> {
                     Resource resource = model.createResource(triple.getResource());
@@ -47,16 +44,16 @@ public class EquipmentService {
         return model;
     }
 
-    public List<ResourceCreationResponse> save(List<Equipment> equipments) {
-        logger.info("Calling repository to save a list of equipments");
+    public List<ResourceCreationResponse> save(List<Agent> agents) {
+        logger.info("Calling repository to save a list of agents");
 
-        List<List<Triple>> equipmentsToTriples = equipments.stream()
-                .map(this::buildEquipmentTriples)
+        List<List<Triple>> agentsToTriples = agents.stream()
+                .map(this::buildAgentTriples)
                 .collect(toList());
 
-        equipmentRepository.save(equipmentsToTriples);
+        agentRepository.save(agentsToTriples);
 
-        return buildResourceCreationResponse(equipmentsToTriples);
+        return buildResourceCreationResponse(agentsToTriples);
     }
 
     private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
@@ -75,8 +72,8 @@ public class EquipmentService {
         return resources;
     }
 
-    private List<Triple> buildEquipmentTriples(Equipment equipment) {
-        String resourceUri = "http://www.example.com/equipment/" + UlidCreator.getUlid();
+    private List<Triple> buildAgentTriples(Agent agent) {
+        String resourceUri = "http://www.example.com/agent/" + UlidCreator.getUlid();
 
         return asList(
         );

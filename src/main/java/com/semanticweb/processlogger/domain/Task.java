@@ -7,6 +7,7 @@ public class Task {
 
     String name;
     String description;
+    String type;
     String process;
 
     public String getName() {
@@ -15,6 +16,10 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getType() {
+        return "https://www.irit.fr/recherches/MELODI/ontologies/BBO#" + type;
     }
 
     public String getProcess() {

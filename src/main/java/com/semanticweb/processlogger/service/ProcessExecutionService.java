@@ -21,6 +21,7 @@ import static java.util.Arrays.asList;
 public class ProcessExecutionService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionService.class);
+    private static final String SCHEMA_IS_PART_OF_PROPERTY_URI = "https://schema.org/isPartOf";
 
     @Autowired
     private ProcessExecutionRepository processExecutionRepository;
@@ -96,7 +97,8 @@ public class ProcessExecutionService {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", processExecution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", processExecution.getFactor()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", processExecution.getTime()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", processExecution.getPlace())
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", processExecution.getPlace()),
+                buildTriple(resourceUri, SCHEMA_IS_PART_OF_PROPERTY_URI, processExecution.getRelatedTo())
         );
     }
 

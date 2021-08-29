@@ -9,6 +9,7 @@ public class ProcessExecution {
     String place;
     String product;
     String factor;
+    String relatedTo;
 
     public String getTime() {
         return time;
@@ -28,5 +29,9 @@ public class ProcessExecution {
 
     public String getFactor() {
         return factor;
+    }
+
+    public String getRelatedTo() {
+        return relatedTo;
     }
 }

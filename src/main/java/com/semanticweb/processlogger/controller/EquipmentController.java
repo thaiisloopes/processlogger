@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/equipment")
@@ -45,6 +46,6 @@ public class EquipmentController {
 
         List<ResourceCreationResponse> response = equipmentService.save(equipments);
 
-        return ResponseEntity.status(CREATED).body(response);
+        return status(CREATED).body(response);
     }
 }

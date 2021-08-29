@@ -4,7 +4,6 @@ import com.semanticweb.processlogger.controller.response.ResourceCreationRespons
 import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.service.ProcessExecutionService;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +12,16 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.slf4j.LoggerFactory.getLogger;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/process-execution")
 public class ProcessExecutionController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionController.class);
+    private static final Logger logger = getLogger(ProcessExecutionController.class);
 
     @Autowired
     private ProcessExecutionService processExecutionService;
@@ -43,7 +44,7 @@ public class ProcessExecutionController {
 
         List<ResourceCreationResponse> response = processExecutionService.record(processes);
 
-        return ResponseEntity.status(CREATED).body(response);
+        return status(CREATED).body(response);
     }
 
     @DeleteMapping
@@ -53,7 +54,7 @@ public class ProcessExecutionController {
 
         processExecutionService.deleteProcessExecutionFrom(processes, graph);
 
-        return ResponseEntity.ok(OK);
+        return status(OK).build();
     }
 
     @DeleteMapping("/graph")
@@ -62,6 +63,6 @@ public class ProcessExecutionController {
 
         processExecutionService.deleteGraph(graph);
 
-        return ResponseEntity.ok(OK);
+        return status(OK).build();
     }
 }

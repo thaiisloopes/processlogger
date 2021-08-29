@@ -16,13 +16,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping("/process")
 public class ProcessController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
+    private static final Logger logger = getLogger(ProcessController.class);
 
     @Autowired
     private ProcessService processService;
@@ -45,6 +47,6 @@ public class ProcessController {
 
         List<ResourceCreationResponse> response = processService.save(processes);
 
-        return ResponseEntity.status(CREATED).body(response);
+        return status(CREATED).body(response);
     }
 }

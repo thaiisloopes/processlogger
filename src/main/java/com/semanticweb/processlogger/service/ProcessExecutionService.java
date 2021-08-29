@@ -12,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ProcessExecutionService {
@@ -33,7 +35,7 @@ public class ProcessExecutionService {
 
         Model model = ModelFactory.createDefaultModel();
         List<Triple> triples = processExecutionRepository.get(queryString);
-        triples.stream().forEach(
+        triples.forEach(
                 triple -> {
                     Resource resource = model.createResource(triple.getResource());
                     Property property = model.createProperty(triple.getProperty());
@@ -49,7 +51,12 @@ public class ProcessExecutionService {
 
         List<List<Triple>> processExecutionToEvent = processes.stream()
                 .map(this::buildProcessTriples)
-                .collect(Collectors.toList());
+                .collect(toList());
+
+        processExecutionToEvent.addAll(processes.stream()
+                .filter(process -> !process.getSubProcesses().isEmpty())
+                .map(this::buildProcessTriples)
+                .collect(toList()));
 
         processExecutionRepository.save(processExecutionToEvent);
 
@@ -77,7 +84,7 @@ public class ProcessExecutionService {
 
         List<List<Triple>> processExecutionToEvent = processes.stream()
                 .map(this::buildProcessTriples)
-                .collect(Collectors.toList());
+                .collect(toList());
 
         processExecutionRepository.deleteManyTriples(processExecutionToEvent, graph);
     }

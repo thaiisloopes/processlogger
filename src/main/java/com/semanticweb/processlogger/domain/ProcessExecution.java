@@ -7,7 +7,7 @@ import java.util.List;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ProcessExecution {
     String time;
-    String responsible;
+    String agent;
     String place;
     String product;
     String factor;
@@ -18,8 +18,8 @@ public class ProcessExecution {
         return time;
     }
 
-    public String getResponsible() {
-        return responsible;
+    public String getAgent() {
+        return agent;
     }
 
     public String getPlace() {

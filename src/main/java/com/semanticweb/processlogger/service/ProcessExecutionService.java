@@ -98,7 +98,7 @@ public class ProcessExecutionService {
 
         return asList(
                 buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/NET/c4dm/event.owl#Event"),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#agent", processExecution.getResponsible()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#agent", processExecution.getAgent()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", processExecution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", processExecution.getFactor()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", processExecution.getTime()),

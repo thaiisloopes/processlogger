@@ -24,7 +24,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class EquipmentService {
 
     private static final Logger logger = getLogger(EquipmentService.class);
-    private static final String RDF_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String THING_CLASS_URI = "https://schema.org/Thing";
     private static final String SCHEMA_IDENTIFIER_PROPERTY_URI = "https://schema.org/identifier";
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
@@ -82,7 +82,7 @@ public class EquipmentService {
         String resourceUri = "http://www.example.com/equipment/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(resourceUri, RDF_URI, THING_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
                 buildTriple(resourceUri, SCHEMA_IDENTIFIER_PROPERTY_URI, equipment.getCode()),
                 buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, equipment.getDescription())
         );

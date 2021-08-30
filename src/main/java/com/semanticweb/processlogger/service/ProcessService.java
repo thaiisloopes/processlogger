@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 public class ProcessService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProcessService.class);
-    private static final String RDF_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String PROCESS_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process";
     private static final String THING_CLASS_URI = "https://schema.org/Thing";
     private static final String SCHEMA_NAME_PROPERTY_URI = "https://schema.org/name";
@@ -83,8 +83,8 @@ public class ProcessService {
         String resourceUri = "http://www.example.com/process/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(resourceUri, RDF_URI + "type", PROCESS_CLASS_URI),
-                buildTriple(resourceUri, RDF_URI + "type", THING_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, PROCESS_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
                 buildTriple(resourceUri, SCHEMA_NAME_PROPERTY_URI, process.getName()),
                 buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, process.getDescription())
         );

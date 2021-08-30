@@ -10,11 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static org.slf4j.LoggerFactory.getLogger;
 
 @Repository
 public class EquipmentRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(EquipmentRepository.class);
+    private static final Logger logger = getLogger(EquipmentRepository.class);
 
     @Autowired
     SnarlTemplate snarlTemplate;

@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 public class TaskService {
 
     private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
-    private static final String RDF_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String THING_CLASS_URI = "https://schema.org/Thing";
     private static final String SCHEMA_NAME_PROPERTY_URI = "https://schema.org/name";
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
@@ -83,8 +83,8 @@ public class TaskService {
         String resourceUri = "http://www.example.com/task/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(resourceUri, RDF_URI + "type", task.getType()),
-                buildTriple(resourceUri, RDF_URI + "type", THING_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, task.getType()),
+                buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
                 buildTriple(resourceUri, SCHEMA_NAME_PROPERTY_URI, task.getName()),
                 buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, task.getDescription()),
                 buildTriple(resourceUri, SCHEMA_IS_PART_OF_PROPERTY_URI, task.getProcess())

@@ -51,32 +51,19 @@ public class ProcessService {
         return model;
     }
 
-    public List<ResourceCreationResponse> save(List<Process> processes) {
-        logger.info("Calling repository to save a list of process");
+    public ResourceCreationResponse save(Process process) {
+        logger.info("Calling repository to save a process");
 
-        List<List<Triple>> processToTriples = processes.stream()
-                .map(this::buildProcessTriples)
-                .collect(toList());
+        List<Triple> processToTriples = buildProcessTriples(process);
 
         processRepository.save(processToTriples);
 
         return buildResourceCreationResponse(processToTriples);
     }
 
-    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
-        List<ResourceCreationResponse> resources = new ArrayList<>();
+    private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
+        return new ResourceCreationResponse(triples.get(0).getResource(), "");
 
-        triples.forEach(
-                tripleList -> tripleList.stream()
-                        .findFirst()
-                        .ifPresent(
-                                triple -> resources.add(
-                                        new ResourceCreationResponse(triple.getResource(), "")
-                                )
-                        )
-        );
-
-        return resources;
     }
 
     private List<Triple> buildProcessTriples(Process process) {

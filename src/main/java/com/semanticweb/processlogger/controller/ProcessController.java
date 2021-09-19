@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/process")
+@RequestMapping("/processes")
 public class ProcessController {
 
     private static final Logger logger = getLogger(ProcessController.class);

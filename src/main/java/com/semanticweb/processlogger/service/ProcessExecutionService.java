@@ -5,7 +5,10 @@ import com.semanticweb.processlogger.controller.response.ResourceCreationRespons
 import com.semanticweb.processlogger.domain.Triple;
 import com.semanticweb.processlogger.domain.ProcessExecution;
 import com.semanticweb.processlogger.repository.ProcessExecutionRepository;
-import org.apache.jena.rdf.model.*;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;

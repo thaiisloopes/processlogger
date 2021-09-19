@@ -80,7 +80,7 @@ public class ProcessService {
     }
 
     private List<Triple> buildProcessTriples(Process process) {
-        String resourceUri = "http://www.example.com/process/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/processes/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, PROCESS_CLASS_URI),

@@ -46,32 +46,18 @@ public class AgentService {
         return model;
     }
 
-    public List<ResourceCreationResponse> save(List<Agent> agents) {
-        logger.info("Calling repository to save a list of agents");
+    public ResourceCreationResponse save(Agent agent) {
+        logger.info("Calling repository to save an agent");
 
-        List<List<Triple>> agentsToTriples = agents.stream()
-                .map(this::buildAgentTriples)
-                .collect(toList());
+        List<Triple> agentToTriples = buildAgentTriples(agent);
 
-        agentRepository.save(agentsToTriples);
+        agentRepository.save(agentToTriples);
 
-        return buildResourceCreationResponse(agentsToTriples);
+        return buildResourceCreationResponse(agentToTriples);
     }
 
-    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
-        List<ResourceCreationResponse> resources = new ArrayList<>();
-
-        triples.forEach(
-                tripleList -> tripleList.stream()
-                        .findFirst()
-                        .ifPresent(
-                                triple -> resources.add(
-                                        new ResourceCreationResponse(triple.getResource(), "")
-                                )
-                        )
-        );
-
-        return resources;
+    private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
+        return new ResourceCreationResponse(triples.get(0).getResource(), "");
     }
 
     private List<Triple> buildAgentTriples(Agent agent) {

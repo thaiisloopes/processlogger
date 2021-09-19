@@ -38,10 +38,10 @@ public class AgentController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllAgents(@RequestBody List<Agent> agents) {
-        logger.info("Calling service to record all agents");
+    public ResponseEntity recordAllAgents(@RequestBody Agent agent) {
+        logger.info("Calling service to record an agent");
 
-        List<ResourceCreationResponse> response = agentService.save(agents);
+        ResourceCreationResponse response = agentService.save(agent);
 
         return status(CREATED).body(response);
     }

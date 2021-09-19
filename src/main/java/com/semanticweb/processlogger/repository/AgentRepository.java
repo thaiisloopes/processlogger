@@ -28,17 +28,16 @@ public class AgentRepository {
         ));
     }
 
-    public void save(List<List<Triple>> triples) {
-        logger.info("Calling StarDog from SnarlTemplate to save agents");
+    public void save(List<Triple> triples) {
+        logger.info("Calling StarDog from SnarlTemplate to save triples");
 
         triples.forEach(
-                triple -> triple.forEach(triple1 ->
+                triple ->
                         snarlTemplate.add(
-                                triple1.getResource(),
-                                triple1.getProperty(),
-                                triple1.getValue()
+                                triple.getResource(),
+                                triple.getProperty(),
+                                triple.getValue()
                         )
-                )
         );
     }
 }

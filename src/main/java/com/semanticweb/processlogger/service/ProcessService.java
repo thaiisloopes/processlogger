@@ -63,7 +63,6 @@ public class ProcessService {
 
     private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
         return new ResourceCreationResponse(triples.get(0).getResource(), "");
-
     }
 
     private List<Triple> buildProcessTriples(Process process) {

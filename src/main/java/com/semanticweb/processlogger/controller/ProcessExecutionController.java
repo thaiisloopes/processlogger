@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/process-execution")
+@RequestMapping("/processes/{processId}/executions")
 public class ProcessExecutionController {
 
     private static final Logger logger = getLogger(ProcessExecutionController.class);
@@ -39,10 +39,13 @@ public class ProcessExecutionController {
     }
 
     @PostMapping
-    public ResponseEntity recordProcessExecution(@RequestBody List<ProcessExecution> processes) {
-        logger.info("Calling service to record all process executions");
+    public ResponseEntity recordProcessExecution(
+            @RequestBody ProcessExecution processExecution,
+            @PathVariable String processId
+    ) {
+        logger.info("Calling service to record a process execution");
 
-        List<ResourceCreationResponse> response = processExecutionService.record(processes);
+        ResourceCreationResponse response = processExecutionService.record(processExecution, processId);
 
         return status(CREATED).body(response);
     }

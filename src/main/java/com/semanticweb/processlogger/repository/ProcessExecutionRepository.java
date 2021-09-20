@@ -28,16 +28,15 @@ public class ProcessExecutionRepository {
         ));
     }
 
-    public void save(List<List<Triple>> triples) {
-        logger.info("Calling StarDog from SnarlTemplate to save a list of process triples");
+    public void save(List<Triple> triples) {
+        logger.info("Calling StarDog from SnarlTemplate to save a process triple");
         triples.forEach(
-                triple -> triple.forEach(triple1 ->
+                triple ->
                         snarlTemplate.add(
-                                triple1.getResource(),
-                                triple1.getProperty(),
-                                triple1.getValue()
+                                triple.getResource(),
+                                triple.getProperty(),
+                                triple.getValue()
                         )
-                )
         );
     }
 

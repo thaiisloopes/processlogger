@@ -38,7 +38,7 @@ public class AgentController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllAgents(@RequestBody Agent agent) {
+    public ResponseEntity recordAgent(@RequestBody Agent agent) {
         logger.info("Calling service to record an agent");
 
         ResourceCreationResponse response = agentService.save(agent);

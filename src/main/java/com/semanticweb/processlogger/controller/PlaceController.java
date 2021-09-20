@@ -38,7 +38,7 @@ public class PlaceController {
     }
 
     @PostMapping
-    public ResponseEntity recordPlaces(@RequestBody Place place) {
+    public ResponseEntity recordPlace(@RequestBody Place place) {
         logger.info("Calling service to record a place");
 
         ResourceCreationResponse response = placeService.save(place);

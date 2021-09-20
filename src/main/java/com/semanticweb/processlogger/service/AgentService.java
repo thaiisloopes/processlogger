@@ -61,7 +61,7 @@ public class AgentService {
     }
 
     private List<Triple> buildAgentTriples(Agent agent) {
-        String resourceUri = "http://www.example.com/agent/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/agents/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/NET/c4dm/event.owl#agent"),

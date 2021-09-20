@@ -29,6 +29,7 @@ public class TaskService {
     private static final String SCHEMA_NAME_PROPERTY_URI = "https://schema.org/name";
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
     private static final String SCHEMA_IS_PART_OF_PROPERTY_URI = "https://schema.org/isPartOf";
+    private static final String BBO_TASK_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Task";
 
     @Autowired
     private TaskRepository taskRepository;
@@ -66,10 +67,10 @@ public class TaskService {
     }
 
     private List<Triple> buildTaskTriples(Task task) {
-        String resourceUri = "http://www.example.com/task/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/tasks/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(resourceUri, RDF_TYPE_URI, task.getType()),
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_TASK_CLASS_URI),
                 buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
                 buildTriple(resourceUri, SCHEMA_NAME_PROPERTY_URI, task.getName()),
                 buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, task.getDescription()),

@@ -64,7 +64,7 @@ public class PlaceService {
     }
 
     private List<Triple> buildPlaceTriples(Place place) {
-        String resourceUri = "http://www.example.com/place/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/places/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, SCHEMA_PLACE_CLASS_URI),

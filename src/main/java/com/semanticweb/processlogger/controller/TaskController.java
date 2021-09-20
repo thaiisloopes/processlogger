@@ -39,7 +39,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllTasks(@RequestBody Task task) {
+    public ResponseEntity recordTask(@RequestBody Task task) {
         logger.info("Calling service to record a task");
 
         ResourceCreationResponse response = taskService.save(task);

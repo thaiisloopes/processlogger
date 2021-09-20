@@ -38,7 +38,7 @@ public class EquipmentController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllEquipments(@RequestBody Equipment equipment) {
+    public ResponseEntity recordEquipment(@RequestBody Equipment equipment) {
         logger.info("Calling service to record an equipment");
 
         ResourceCreationResponse response = equipmentService.save(equipment);

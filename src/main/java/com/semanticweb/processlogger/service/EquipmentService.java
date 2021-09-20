@@ -65,7 +65,7 @@ public class EquipmentService {
     }
 
     private List<Triple> buildEquipmentTriples(Equipment equipment) {
-        String resourceUri = "http://www.example.com/equipment/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/equipments/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),

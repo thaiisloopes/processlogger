@@ -38,7 +38,7 @@ public class ProcessController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllProcess(@RequestBody Process process) {
+    public ResponseEntity recordProcess(@RequestBody Process process) {
         logger.info("Calling service to record all processes");
 
         ResourceCreationResponse response = processService.save(process);

@@ -39,7 +39,7 @@ public class ProcessExecutionController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllProcess(@RequestBody List<ProcessExecution> processes) {
+    public ResponseEntity recordProcessExecution(@RequestBody List<ProcessExecution> processes) {
         logger.info("Calling service to record all process executions");
 
         List<ResourceCreationResponse> response = processExecutionService.record(processes);

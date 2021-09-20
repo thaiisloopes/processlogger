@@ -12,12 +12,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
@@ -30,7 +26,7 @@ public class EquipmentService {
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
 
     @Autowired
-    private TripleRepository equipmentRepository;
+    private TripleRepository repository;
 
     public Model getEquipments() {
         logger.info("Calling repository to get all recorded equipments");
@@ -38,7 +34,7 @@ public class EquipmentService {
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();
-        List<Triple> triples = equipmentRepository.get(queryString);
+        List<Triple> triples = repository.get(queryString);
         triples.forEach(
                 triple -> {
                     Resource resource = model.createResource(triple.getResource());
@@ -55,7 +51,7 @@ public class EquipmentService {
 
         List<Triple> equipmentToTriples = buildEquipmentTriples(equipment);
 
-        equipmentRepository.save(equipmentToTriples);
+        repository.save(equipmentToTriples);
 
         return buildResourceCreationResponse(equipmentToTriples);
     }

@@ -12,12 +12,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
@@ -29,7 +25,7 @@ public class PlaceService {
     public static final String SCHEMA_PLACE_CLASS_URI = "https://schema.org/Place";
 
     @Autowired
-    private TripleRepository placeRepository;
+    private TripleRepository repository;
 
     public Model getPlaces() {
         logger.info("Calling repository to get all recorded equipments");
@@ -37,7 +33,7 @@ public class PlaceService {
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();
-        List<Triple> triples = placeRepository.get(queryString);
+        List<Triple> triples = repository.get(queryString);
         triples.forEach(
                 triple -> {
                     Resource resource = model.createResource(triple.getResource());
@@ -54,7 +50,7 @@ public class PlaceService {
 
         List<Triple> placeToTriples = buildPlaceTriples(place);
 
-        placeRepository.save(placeToTriples);
+        repository.save(placeToTriples);
 
         return buildResourceCreationResponse(placeToTriples);
     }

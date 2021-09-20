@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class ProcessExecution {
+public class Execution {
     String time;
     String agent;
     String place;
     String product;
     String factor;
     String relatedTo;
-    List<ProcessExecution> subProcesses;
+    List<Execution> subProcesses;
 
     public String getTime() {
         return time;
@@ -38,7 +38,7 @@ public class ProcessExecution {
         return relatedTo;
     }
 
-    public List<ProcessExecution> getSubProcesses() {
+    public List<Execution> getSubProcesses() {
         return subProcesses;
     }
 }

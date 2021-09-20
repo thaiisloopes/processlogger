@@ -12,9 +12,9 @@ import java.util.List;
 import static java.util.Objects.*;
 
 @Repository
-public class ProcessExecutionRepository {
+public class ExecutionRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutionRepository.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExecutionRepository.class);
 
     @Autowired
     SnarlTemplate snarlTemplate;

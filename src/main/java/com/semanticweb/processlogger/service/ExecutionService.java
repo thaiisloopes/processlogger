@@ -23,7 +23,6 @@ public class ExecutionService {
 
     private static final Logger logger = getLogger(ExecutionService.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    private static final String SCHEMA_IS_PART_OF_PROPERTY_URI = "https://schema.org/isPartOf";
 
     @Autowired
     private TripleRepository repository;
@@ -117,8 +116,7 @@ public class ExecutionService {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", execution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", execution.getFactor()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", execution.getTime()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
-                buildTriple(resourceUri, SCHEMA_IS_PART_OF_PROPERTY_URI, execution.getRelatedTo())
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace())
         );
     }
 
@@ -142,8 +140,7 @@ public class ExecutionService {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
                 buildTriple("http://www.example.com/processes/" + processId + "/executions/" + processExecutionId,
                         "http://purl.org/NET/c4dm/event.owl#sub_event",
-                        resourceUri),
-                buildTriple(resourceUri, SCHEMA_IS_PART_OF_PROPERTY_URI, execution.getRelatedTo())
+                        resourceUri)
         );
     }
 
@@ -167,8 +164,7 @@ public class ExecutionService {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
                 buildTriple("http://www.example.com/processes/" + processId + "/executions/" + processExecutionId,
                         "http://purl.org/NET/c4dm/event.owl#sub_event",
-                        resourceUri),
-                buildTriple(resourceUri, SCHEMA_IS_PART_OF_PROPERTY_URI, execution.getRelatedTo())
+                        resourceUri)
         );
     }
 

@@ -11,8 +11,6 @@ public class Execution {
     String place;
     String product;
     String factor;
-    String relatedTo;
-    List<Execution> subProcesses;
 
     public String getTime() {
         return time;
@@ -32,13 +30,5 @@ public class Execution {
 
     public String getFactor() {
         return factor;
-    }
-
-    public String getRelatedTo() {
-        return relatedTo;
-    }
-
-    public List<Execution> getSubProcesses() {
-        return subProcesses;
     }
 }

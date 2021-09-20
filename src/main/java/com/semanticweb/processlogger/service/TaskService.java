@@ -69,8 +69,7 @@ public class TaskService {
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_TASK_CLASS_URI),
                 buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
                 buildTriple(resourceUri, SCHEMA_NAME_PROPERTY_URI, task.getName()),
-                buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, task.getDescription()),
-                buildTriple(resourceUri, SCHEMA_IS_PART_OF_PROPERTY_URI, task.getProcess())
+                buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, task.getDescription())
         );
     }
 

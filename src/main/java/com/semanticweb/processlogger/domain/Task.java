@@ -7,7 +7,6 @@ public class Task {
 
     String name;
     String description;
-    String process;
 
     public String getName() {
         return name;
@@ -15,9 +14,5 @@ public class Task {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getProcess() {
-        return process;
     }
 }

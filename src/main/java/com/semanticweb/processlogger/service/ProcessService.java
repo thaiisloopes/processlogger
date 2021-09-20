@@ -14,7 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ProcessService {
@@ -25,6 +28,7 @@ public class ProcessService {
     private static final String THING_CLASS_URI = "https://schema.org/Thing";
     private static final String SCHEMA_NAME_PROPERTY_URI = "https://schema.org/name";
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
+    private static final String BBO_HAS_PART_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_part";
 
     @Autowired
     private TripleRepository repository;
@@ -51,8 +55,10 @@ public class ProcessService {
         logger.info("Calling repository to save a process");
 
         List<Triple> processToTriples = buildProcessTriples(process);
+        List<Triple> hasPartToTriples = buildHasPartTriples(process, processToTriples.get(0).getResource());
 
         repository.save(processToTriples);
+        repository.save(hasPartToTriples);
 
         return buildResourceCreationResponse(processToTriples);
     }
@@ -70,6 +76,12 @@ public class ProcessService {
                 buildTriple(resourceUri, SCHEMA_NAME_PROPERTY_URI, process.getName()),
                 buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, process.getDescription())
         );
+    }
+
+    private List<Triple> buildHasPartTriples(Process process, String uri) {
+        return process.getHasPart().stream()
+                .map(part -> buildTriple(uri, BBO_HAS_PART_PROPERTY_URI, part))
+                .collect(toList());
     }
 
     private Triple buildTriple(String resource, String property, String value) {

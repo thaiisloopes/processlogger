@@ -2,11 +2,14 @@ package com.semanticweb.processlogger.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import java.util.List;
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Process {
 
     String name;
     String description;
+    List<String> hasPart;
 
     public String getName() {
         return name;
@@ -14,5 +17,9 @@ public class Process {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<String> getHasPart() {
+        return hasPart;
     }
 }

@@ -49,32 +49,18 @@ public class PlaceService {
         return model;
     }
 
-    public List<ResourceCreationResponse> save(List<Place> places) {
-        logger.info("Calling repository to save a list of places");
+    public ResourceCreationResponse save(Place place) {
+        logger.info("Calling repository to save a place");
 
-        List<List<Triple>> placesToTriples = places.stream()
-                .map(this::buildPlaceTriples)
-                .collect(toList());
+        List<Triple> placeToTriples = buildPlaceTriples(place);
 
-        placeRepository.save(placesToTriples);
+        placeRepository.save(placeToTriples);
 
-        return buildResourceCreationResponse(placesToTriples);
+        return buildResourceCreationResponse(placeToTriples);
     }
 
-    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
-        List<ResourceCreationResponse> resources = new ArrayList<>();
-
-        triples.forEach(
-                tripleList -> tripleList.stream()
-                        .findFirst()
-                        .ifPresent(
-                                triple -> resources.add(
-                                        new ResourceCreationResponse(triple.getResource(), "")
-                                )
-                        )
-        );
-
-        return resources;
+    private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
+        return new ResourceCreationResponse(triples.get(0).getResource(), "");
     }
 
     private List<Triple> buildPlaceTriples(Place place) {

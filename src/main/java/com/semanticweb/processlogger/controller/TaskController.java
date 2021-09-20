@@ -13,13 +13,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class TaskController {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
+    private static final Logger logger = getLogger(TaskController.class);
 
     @Autowired
     private TaskService taskService;
@@ -37,11 +39,11 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllTasks(@RequestBody List<Task> tasks) {
-        logger.info("Calling service to record all tasks");
+    public ResponseEntity recordAllTasks(@RequestBody Task task) {
+        logger.info("Calling service to record a task");
 
-        List<ResourceCreationResponse> response = taskService.save(tasks);
+        ResourceCreationResponse response = taskService.save(task);
 
-        return ResponseEntity.status(CREATED).body(response);
+        return status(CREATED).body(response);
     }
 }

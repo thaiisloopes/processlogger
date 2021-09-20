@@ -51,32 +51,18 @@ public class TaskService {
         return model;
     }
 
-    public List<ResourceCreationResponse> save(List<Task> tasks) {
-        logger.info("Calling repository to save a list of tasks");
+    public ResourceCreationResponse save(Task task) {
+        logger.info("Calling repository to save a task");
 
-        List<List<Triple>> tasksToTriples = tasks.stream()
-                .map(this::buildTaskTriples)
-                .collect(toList());
+        List<Triple> taskToTriples = buildTaskTriples(task);
 
-        taskRepository.save(tasksToTriples);
+        taskRepository.save(taskToTriples);
 
-        return buildResourceCreationResponse(tasksToTriples);
+        return buildResourceCreationResponse(taskToTriples);
     }
 
-    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
-        List<ResourceCreationResponse> resources = new ArrayList<>();
-
-        triples.forEach(
-                tripleList -> tripleList.stream()
-                        .findFirst()
-                        .ifPresent(
-                                triple -> resources.add(
-                                        new ResourceCreationResponse(triple.getResource(), "")
-                                )
-                        )
-        );
-
-        return resources;
+    private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
+        return new ResourceCreationResponse(triples.get(0).getResource(), "");
     }
 
     private List<Triple> buildTaskTriples(Task task) {

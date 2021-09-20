@@ -4,7 +4,7 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Place;
 import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.PlaceRepository;
+import com.semanticweb.processlogger.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -29,7 +29,7 @@ public class PlaceService {
     public static final String SCHEMA_PLACE_CLASS_URI = "https://schema.org/Place";
 
     @Autowired
-    private PlaceRepository placeRepository;
+    private TripleRepository placeRepository;
 
     public Model getPlaces() {
         logger.info("Calling repository to get all recorded equipments");

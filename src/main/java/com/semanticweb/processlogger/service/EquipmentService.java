@@ -4,7 +4,7 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Equipment;
 import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.EquipmentRepository;
+import com.semanticweb.processlogger.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -30,7 +30,7 @@ public class EquipmentService {
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
 
     @Autowired
-    private EquipmentRepository equipmentRepository;
+    private TripleRepository equipmentRepository;
 
     public Model getEquipments() {
         logger.info("Calling repository to get all recorded equipments");

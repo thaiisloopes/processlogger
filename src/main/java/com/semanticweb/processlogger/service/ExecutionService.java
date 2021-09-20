@@ -3,7 +3,7 @@ package com.semanticweb.processlogger.service;
 import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Triple;
 import com.semanticweb.processlogger.domain.Execution;
-import com.semanticweb.processlogger.repository.ExecutionRepository;
+import com.semanticweb.processlogger.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -26,7 +26,7 @@ public class ExecutionService {
     private static final String SCHEMA_IS_PART_OF_PROPERTY_URI = "https://schema.org/isPartOf";
 
     @Autowired
-    private ExecutionRepository executionRepository;
+    private TripleRepository repository;
 
     public Model getProcess() {
         logger.info("Calling repository to get all recorded process execution");
@@ -34,7 +34,7 @@ public class ExecutionService {
         String queryString = "prefix foaf: <http://xmlns.com/foaf/0.1/> select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();
-        List<Triple> triples = executionRepository.get(queryString);
+        List<Triple> triples = repository.get(queryString);
         triples.forEach(
                 triple -> {
                     Resource resource = model.createResource(triple.getResource());
@@ -51,7 +51,7 @@ public class ExecutionService {
 
         List<Triple> processExecutionToEvent = buildProcessTriples(execution, processId);
 
-        executionRepository.save(processExecutionToEvent);
+        repository.save(processExecutionToEvent);
 
         return buildResourceCreationResponse(processExecutionToEvent);
     }
@@ -66,7 +66,7 @@ public class ExecutionService {
 
         List<Triple> taskExecutionToEvent = buildTaskTriples(execution, processId, processExecutionId, taskId);
 
-        executionRepository.save(taskExecutionToEvent);
+        repository.save(taskExecutionToEvent);
 
         return buildResourceCreationResponse(taskExecutionToEvent);
     }
@@ -82,7 +82,7 @@ public class ExecutionService {
         List<Triple> subProcessExecutionToEvent = buildSubProcessTriples(
                 execution, processId, processExecutionId, subProcessId);
 
-        executionRepository.save(subProcessExecutionToEvent);
+        repository.save(subProcessExecutionToEvent);
 
         return buildResourceCreationResponse(subProcessExecutionToEvent);
     }
@@ -98,13 +98,13 @@ public class ExecutionService {
                 .map((Execution execution) -> buildProcessTriples(execution, ""))
                 .collect(toList());
 
-        executionRepository.deleteManyTriples(processExecutionToEvent, graph);
+        repository.deleteManyTriples(processExecutionToEvent, graph);
     }
 
     public void deleteGraph(String graph) {
         logger.info("Calling repository to delete a specific graph");
 
-        executionRepository.deleteGraph(graph);
+        repository.deleteGraph(graph);
     }
 
     private List<Triple> buildProcessTriples(Execution execution, String processId) {

@@ -4,7 +4,7 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Task;
 import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.TaskRepository;
+import com.semanticweb.processlogger.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -32,7 +32,7 @@ public class TaskService {
     private static final String BBO_TASK_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Task";
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TripleRepository taskRepository;
 
     public Model getTasks() {
         logger.info("Calling repository to get all recorded tasks");

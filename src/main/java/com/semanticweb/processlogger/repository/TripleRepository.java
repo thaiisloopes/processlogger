@@ -2,20 +2,19 @@ package com.semanticweb.processlogger.repository;
 
 import com.semanticweb.processlogger.domain.Triple;
 import com.stardog.ext.spring.SnarlTemplate;
+import com.stardog.stark.Values;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
+import static java.util.Objects.*;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Repository
-public class EquipmentRepository {
+public class TripleRepository {
 
-    private static final Logger logger = getLogger(EquipmentRepository.class);
+    private static final Logger logger = getLogger(TripleRepository.class);
 
     @Autowired
     SnarlTemplate snarlTemplate;
@@ -30,8 +29,7 @@ public class EquipmentRepository {
     }
 
     public void save(List<Triple> triples) {
-        logger.info("Calling StarDog from SnarlTemplate to save equipments");
-
+        logger.info("Calling StarDog from SnarlTemplate to save a process triple");
         triples.forEach(
                 triple ->
                         snarlTemplate.add(
@@ -40,5 +38,25 @@ public class EquipmentRepository {
                                 triple.getValue()
                         )
         );
+    }
+
+    public void deleteManyTriples(List<List<Triple>> triples, String graph) {
+        logger.info("Calling StarDog from SnarlTemplate to delete many process triples");
+        triples.forEach(
+                triple -> triple.forEach(triple1 ->
+                        snarlTemplate.remove(
+                                triple1.getResource(),
+                                triple1.getProperty(),
+                                triple1.getValue(),
+                                graph
+                        )
+                )
+        );
+    }
+
+    public void deleteGraph(String graph) {
+        logger.info("Calling StarDog grom SnarlTemplate to delete all process triples from a graph");
+
+        snarlTemplate.remove(graph);
     }
 }

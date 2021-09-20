@@ -4,7 +4,7 @@ import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
 import com.semanticweb.processlogger.domain.Agent;
 import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.AgentRepository;
+import com.semanticweb.processlogger.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
@@ -26,7 +26,7 @@ public class AgentService {
     private static final Logger logger = getLogger(AgentService.class);
 
     @Autowired
-    private AgentRepository agentRepository;
+    private TripleRepository agentRepository;
 
     public Model getAgents() {
         logger.info("Calling repository to get all recorded agents");

@@ -57,7 +57,7 @@ public class ProcessExecutionService {
     }
 
     private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
-        return new ResourceCreationResponse(triples.get(0).getResource(), "");
+        return new ResourceCreationResponse(triples.get(0).getResource());
     }
 
     public void deleteProcessExecutionFrom(List<ProcessExecution> processes, String graph) {

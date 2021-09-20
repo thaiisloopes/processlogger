@@ -57,7 +57,7 @@ public class AgentService {
     }
 
     private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
-        return new ResourceCreationResponse(triples.get(0).getResource(), "");
+        return new ResourceCreationResponse(triples.get(0).getResource());
     }
 
     private List<Triple> buildAgentTriples(Agent agent) {

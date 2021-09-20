@@ -6,10 +6,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 public class ResourceCreationResponse {
 
     String uri;
-    String description;
 
-    public ResourceCreationResponse(String uri, String description) {
+    public ResourceCreationResponse(String uri) {
         this.uri = uri;
-        this.description = description;
     }
 }

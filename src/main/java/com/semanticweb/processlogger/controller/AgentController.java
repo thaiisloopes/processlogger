@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/agent")
+@RequestMapping("/agents")
 public class AgentController {
 
     private static final Logger logger = getLogger(AgentController.class);

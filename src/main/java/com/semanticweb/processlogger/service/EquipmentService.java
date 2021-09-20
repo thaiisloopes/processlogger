@@ -50,32 +50,18 @@ public class EquipmentService {
         return model;
     }
 
-    public List<ResourceCreationResponse> save(List<Equipment> equipments) {
-        logger.info("Calling repository to save a list of equipments");
+    public ResourceCreationResponse save(Equipment equipment) {
+        logger.info("Calling repository to save an equipment");
 
-        List<List<Triple>> equipmentsToTriples = equipments.stream()
-                .map(this::buildEquipmentTriples)
-                .collect(toList());
+        List<Triple> equipmentToTriples = buildEquipmentTriples(equipment);
 
-        equipmentRepository.save(equipmentsToTriples);
+        equipmentRepository.save(equipmentToTriples);
 
-        return buildResourceCreationResponse(equipmentsToTriples);
+        return buildResourceCreationResponse(equipmentToTriples);
     }
 
-    private List<ResourceCreationResponse> buildResourceCreationResponse(List<List<Triple>> triples) {
-        List<ResourceCreationResponse> resources = new ArrayList<>();
-
-        triples.forEach(
-                tripleList -> tripleList.stream()
-                        .findFirst()
-                        .ifPresent(
-                                triple -> resources.add(
-                                        new ResourceCreationResponse(triple.getResource(), "")
-                                )
-                        )
-        );
-
-        return resources;
+    private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
+        return new ResourceCreationResponse(triples.get(0).getResource(), "");
     }
 
     private List<Triple> buildEquipmentTriples(Equipment equipment) {

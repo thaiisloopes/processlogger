@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/equipment")
+@RequestMapping("/equipments")
 public class EquipmentController {
 
     private static final Logger logger = getLogger(EquipmentController.class);
@@ -38,10 +38,10 @@ public class EquipmentController {
     }
 
     @PostMapping
-    public ResponseEntity recordAllEquipments(@RequestBody List<Equipment> equipments) {
-        logger.info("Calling service to record all equipments");
+    public ResponseEntity recordAllEquipments(@RequestBody Equipment equipment) {
+        logger.info("Calling service to record an equipment");
 
-        List<ResourceCreationResponse> response = equipmentService.save(equipments);
+        ResourceCreationResponse response = equipmentService.save(equipment);
 
         return status(CREATED).body(response);
     }

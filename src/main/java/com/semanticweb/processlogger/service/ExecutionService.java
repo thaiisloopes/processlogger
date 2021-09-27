@@ -128,7 +128,7 @@ public class ExecutionService {
     ) {
         String resourceUri = "http://www.example.com/processes/" + processId
                 + "/executions/" + processExecutionId
-                + " /tasks/" + taskId + "/executions/" + getUlid();
+                + "/tasks/" + taskId + "/executions/" + getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/NET/c4dm/event.owl#Event"),
@@ -152,7 +152,7 @@ public class ExecutionService {
     ) {
         String resourceUri = "http://www.example.com/processes/" + processId
                 + "/executions/" + processExecutionId
-                + " /processes/" + subProcessId + "/executions/" + getUlid();
+                + "/processes/" + subProcessId + "/executions/" + getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/NET/c4dm/event.owl#Event"),

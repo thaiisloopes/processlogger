@@ -29,7 +29,7 @@ public class TripleRepository {
     }
 
     public void save(List<Triple> triples) {
-        logger.info("Calling StarDog from SnarlTemplate to save a process triple");
+        logger.info("Calling StarDog from SnarlTemplate to save triples");
         triples.forEach(
                 triple ->
                         snarlTemplate.add(
@@ -41,7 +41,7 @@ public class TripleRepository {
     }
 
     public void deleteManyTriples(List<List<Triple>> triples, String graph) {
-        logger.info("Calling StarDog from SnarlTemplate to delete many process triples");
+        logger.info("Calling StarDog from SnarlTemplate to delete many triples");
         triples.forEach(
                 triple -> triple.forEach(triple1 ->
                         snarlTemplate.remove(
@@ -55,7 +55,7 @@ public class TripleRepository {
     }
 
     public void deleteGraph(String graph) {
-        logger.info("Calling StarDog grom SnarlTemplate to delete all process triples from a graph");
+        logger.info("Calling StarDog from SnarlTemplate to delete all triples from a graph");
 
         snarlTemplate.remove(graph);
     }

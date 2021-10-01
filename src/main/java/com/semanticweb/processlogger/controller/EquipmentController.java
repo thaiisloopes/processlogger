@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -38,7 +39,7 @@ public class EquipmentController {
     }
 
     @PostMapping
-    public ResponseEntity recordEquipment(@RequestBody Equipment equipment) {
+    public ResponseEntity recordEquipment(@RequestBody Equipment equipment) throws URISyntaxException {
         logger.info("Calling service to record an equipment");
 
         ResourceCreationResponse response = equipmentService.save(equipment);

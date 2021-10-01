@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -39,7 +40,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity recordTask(@RequestBody Task task) {
+    public ResponseEntity recordTask(@RequestBody Task task) throws URISyntaxException {
         logger.info("Calling service to record a task");
 
         ResourceCreationResponse response = taskService.save(task);

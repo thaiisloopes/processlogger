@@ -11,6 +11,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.net.URISyntaxException;
 import java.util.List;
 import static java.util.Arrays.asList;
 import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
@@ -42,7 +44,7 @@ public class AgentService {
         return model;
     }
 
-    public ResourceCreationResponse save(Agent agent) {
+    public ResourceCreationResponse save(Agent agent) throws URISyntaxException {
         logger.info("Calling repository to save an agent");
 
         List<Triple> agentToTriples = buildAgentTriples(agent);

@@ -12,6 +12,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.net.URISyntaxException;
 import java.util.List;
 import static java.util.Arrays.asList;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -45,7 +47,7 @@ public class PlaceService {
         return model;
     }
 
-    public ResourceCreationResponse save(Place place) {
+    public ResourceCreationResponse save(Place place) throws URISyntaxException {
         logger.info("Calling repository to save a place");
 
         List<Triple> placeToTriples = buildPlaceTriples(place);

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -38,7 +39,7 @@ public class AgentController {
     }
 
     @PostMapping
-    public ResponseEntity recordAgent(@RequestBody Agent agent) {
+    public ResponseEntity recordAgent(@RequestBody Agent agent) throws URISyntaxException {
         logger.info("Calling service to record an agent");
 
         ResourceCreationResponse response = agentService.save(agent);

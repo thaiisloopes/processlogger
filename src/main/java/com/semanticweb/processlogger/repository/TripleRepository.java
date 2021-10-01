@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import static java.util.Objects.*;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -28,15 +30,31 @@ public class TripleRepository {
         ));
     }
 
-    public void save(List<Triple> triples) {
+    public void save(List<Triple> triples) throws URISyntaxException {
         logger.info("Calling StarDog from SnarlTemplate to save triples");
         triples.forEach(
-                triple ->
-                        snarlTemplate.add(
-                                triple.getResource(),
-                                triple.getProperty(),
-                                triple.getValue()
-                        )
+                triple -> {
+                    String value = triple.getValue();
+
+                    try {
+                        if(value.contains("http")) {
+                            snarlTemplate.add(
+                                    new URI(triple.getResource()),
+                                    new URI(triple.getProperty()),
+                                    new URI(value)
+                            );
+                        } else {
+                            snarlTemplate.add(
+                                    triple.getResource(),
+                                    triple.getProperty(),
+                                    value
+                            );
+                        }
+
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
         );
     }
 

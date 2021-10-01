@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -42,7 +43,7 @@ public class ExecutionController {
     public ResponseEntity recordProcessExecution(
             @RequestBody Execution execution,
             @PathVariable String processId
-    ) {
+    ) throws URISyntaxException {
         logger.info("Calling service to record a process execution");
 
         ResourceCreationResponse response = executionService.recordProcessExecution(execution, processId);
@@ -56,7 +57,7 @@ public class ExecutionController {
             @PathVariable String processId,
             @PathVariable String processExecutionId,
             @PathVariable String taskId
-    ) {
+    ) throws URISyntaxException {
         logger.info("Calling service to record a task execution related to a process Execution");
 
         ResourceCreationResponse response = executionService.recordTaskExecution(
@@ -71,7 +72,7 @@ public class ExecutionController {
             @PathVariable String processId,
             @PathVariable String processExecutionId,
             @PathVariable String subProcessId
-    ) {
+    ) throws URISyntaxException {
         logger.info("Calling service to record a subProcess execution related to a process Execution");
 
         ResourceCreationResponse response = executionService.recordSubProcessExecution(

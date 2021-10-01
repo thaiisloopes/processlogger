@@ -11,6 +11,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
+
+import java.net.URISyntaxException;
 import java.util.List;
 
 import static com.github.f4b6a3.ulid.UlidCreator.getUlid;
@@ -45,7 +47,7 @@ public class ExecutionService {
         return model;
     }
 
-    public ResourceCreationResponse recordProcessExecution(Execution execution, String processId) {
+    public ResourceCreationResponse recordProcessExecution(Execution execution, String processId) throws URISyntaxException {
         logger.info("Calling repository to save a process execution");
 
         List<Triple> processExecutionToEvent = buildProcessTriples(execution, processId);
@@ -60,7 +62,7 @@ public class ExecutionService {
             String processId,
             String processExecutionId,
             String taskId
-    ) {
+    ) throws URISyntaxException {
         logger.info("Calling repository to save a task execution");
 
         List<Triple> taskExecutionToEvent = buildTaskTriples(execution, processId, processExecutionId, taskId);
@@ -75,7 +77,7 @@ public class ExecutionService {
             String processId,
             String processExecutionId,
             String subProcessId
-    ) {
+    ) throws URISyntaxException {
         logger.info("Calling repository to save a subProcess execution");
 
         List<Triple> subProcessExecutionToEvent = buildSubProcessTriples(

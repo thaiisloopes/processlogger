@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 
 import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -38,7 +39,7 @@ public class PlaceController {
     }
 
     @PostMapping
-    public ResponseEntity recordPlace(@RequestBody Place place) {
+    public ResponseEntity recordPlace(@RequestBody Place place) throws URISyntaxException {
         logger.info("Calling service to record a place");
 
         ResourceCreationResponse response = placeService.save(place);

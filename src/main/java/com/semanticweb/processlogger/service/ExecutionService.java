@@ -29,24 +29,6 @@ public class ExecutionService {
     @Autowired
     private TripleRepository repository;
 
-    public Model getProcess() {
-        logger.info("Calling repository to get all recorded process execution");
-
-        String queryString = "prefix foaf: <http://xmlns.com/foaf/0.1/> select ?s ?p ?o where { ?s ?p ?o. }";
-
-        Model model = ModelFactory.createDefaultModel();
-        List<Triple> triples = repository.get(queryString);
-        triples.forEach(
-                triple -> {
-                    Resource resource = model.createResource(triple.getResource());
-                    Property property = model.createProperty(triple.getProperty());
-                    model.add(resource, property, triple.getValue());
-                }
-        );
-
-        return model;
-    }
-
     public ResourceCreationResponse recordProcessExecution(Execution execution, String processId) throws URISyntaxException {
         logger.info("Calling repository to save a process execution");
 

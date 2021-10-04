@@ -27,18 +27,6 @@ public class ExecutionController {
     @Autowired
     private ExecutionService executionService;
 
-    @GetMapping
-    public String getAllProcess(@RequestHeader("Accept") String accept) {
-        String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
-
-        logger.info("Calling service to get all recorded process executions");
-
-        OutputStream stream = new ByteArrayOutputStream() ;
-        executionService.getProcess().write(stream, format);
-
-        return stream.toString();
-    }
-
     @PostMapping
     public ResponseEntity recordProcessExecution(
             @RequestBody Execution execution,

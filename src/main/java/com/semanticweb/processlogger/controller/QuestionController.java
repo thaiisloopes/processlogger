@@ -50,10 +50,10 @@ public class QuestionController {
         return stream.toString();
     }
 
-    @GetMapping("/executions")
+    @GetMapping("/tasks/{taskId}/objects")
     public String getObjectsFromTaskExecution(
             @RequestHeader("Accept") String accept,
-            @RequestParam String taskId
+            @PathVariable String taskId
     ) {
         String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
 
@@ -64,5 +64,4 @@ public class QuestionController {
 
         return stream.toString();
     }
-
 }

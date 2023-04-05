@@ -23,7 +23,7 @@ public class TripleRepository {
     SnarlTemplate snarlTemplate;
 
     public List<Triple> get(String queryString) {
-        logger.info("Calling StarDog from SnarlTemplate to get all triples");
+        logger.info("Calling StarDog from SnarlTemplate to get all triples.");
         return snarlTemplate.query(queryString, bindingSet -> new Triple(
                 requireNonNull(bindingSet.get("s")).toString(),
                 requireNonNull(bindingSet.get("p")).toString(),

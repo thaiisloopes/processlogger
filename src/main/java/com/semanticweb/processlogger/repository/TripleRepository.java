@@ -94,6 +94,7 @@ public class TripleRepository {
                     try {
                         if(value.contains("http")) {
                             snarlTemplate.add(
+
                                     new URI(triple.getResource()),
                                     new URI(triple.getProperty()),
                                     new URI(value)

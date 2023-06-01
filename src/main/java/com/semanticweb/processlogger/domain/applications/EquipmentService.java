@@ -1,10 +1,10 @@
-package com.semanticweb.processlogger.service;
+package com.semanticweb.processlogger.domain.applications;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
-import com.semanticweb.processlogger.domain.Place;
-import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.TripleRepository;
+import com.semanticweb.processlogger.inbound.resources.ResourceCreationResponse;
+import com.semanticweb.processlogger.domain.resources.Equipment;
+import com.semanticweb.processlogger.domain.resources.Triple;
+import com.semanticweb.processlogger.infrastructure.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -19,17 +19,18 @@ import static java.util.Arrays.asList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class PlaceService {
+public class EquipmentService {
 
-    private static final Logger logger = getLogger(PlaceService.class);
+    private static final Logger logger = getLogger(EquipmentService.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+    private static final String THING_CLASS_URI = "https://schema.org/Thing";
+    private static final String SCHEMA_IDENTIFIER_PROPERTY_URI = "https://schema.org/identifier";
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
-    public static final String SCHEMA_PLACE_CLASS_URI = "https://schema.org/Place";
 
     @Autowired
     private TripleRepository repository;
 
-    public Model getPlaces() {
+    public Model getEquipments() {
         logger.info("Calling repository to get all recorded equipments");
 
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
@@ -47,26 +48,27 @@ public class PlaceService {
         return model;
     }
 
-    public ResourceCreationResponse save(Place place) throws URISyntaxException {
-        logger.info("Calling repository to save a place");
+    public ResourceCreationResponse save(Equipment equipment) throws URISyntaxException {
+        logger.info("Calling repository to save an equipment");
 
-        List<Triple> placeToTriples = buildPlaceTriples(place);
+        List<Triple> equipmentToTriples = buildEquipmentTriples(equipment);
 
-        repository.save(placeToTriples);
+        repository.save(equipmentToTriples);
 
-        return buildResourceCreationResponse(placeToTriples);
+        return buildResourceCreationResponse(equipmentToTriples);
     }
 
     private ResourceCreationResponse buildResourceCreationResponse(List<Triple> triples) {
         return new ResourceCreationResponse(triples.get(0).getResource());
     }
 
-    private List<Triple> buildPlaceTriples(Place place) {
-        String resourceUri = "http://www.example.com/places/" + UlidCreator.getUlid();
+    private List<Triple> buildEquipmentTriples(Equipment equipment) {
+        String resourceUri = "http://www.example.com/equipments/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(resourceUri, RDF_TYPE_URI, SCHEMA_PLACE_CLASS_URI),
-                buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, place.getDescription())
+                buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
+                buildTriple(resourceUri, SCHEMA_IDENTIFIER_PROPERTY_URI, equipment.getCode()),
+                buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, equipment.getDescription())
         );
     }
 

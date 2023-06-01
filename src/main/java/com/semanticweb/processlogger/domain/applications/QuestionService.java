@@ -1,7 +1,7 @@
-package com.semanticweb.processlogger.service;
+package com.semanticweb.processlogger.domain.applications;
 
-import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.repository.TripleRepository;
+import com.semanticweb.processlogger.domain.resources.Triple;
+import com.semanticweb.processlogger.infrastructure.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;

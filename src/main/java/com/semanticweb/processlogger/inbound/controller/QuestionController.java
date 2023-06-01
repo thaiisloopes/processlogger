@@ -1,6 +1,6 @@
-package com.semanticweb.processlogger.controller;
+package com.semanticweb.processlogger.inbound.controller;
 
-import com.semanticweb.processlogger.service.QuestionService;
+import com.semanticweb.processlogger.domain.applications.QuestionService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

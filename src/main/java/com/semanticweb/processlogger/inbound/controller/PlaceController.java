@@ -1,10 +1,8 @@
-package com.semanticweb.processlogger.controller;
+package com.semanticweb.processlogger.inbound.controller;
 
-import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
-import com.semanticweb.processlogger.domain.Equipment;
-import com.semanticweb.processlogger.domain.Place;
-import com.semanticweb.processlogger.service.EquipmentService;
-import com.semanticweb.processlogger.service.PlaceService;
+import com.semanticweb.processlogger.inbound.resources.ResourceCreationResponse;
+import com.semanticweb.processlogger.domain.resources.Place;
+import com.semanticweb.processlogger.domain.applications.PlaceService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

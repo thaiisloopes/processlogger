@@ -1,15 +1,13 @@
-package com.semanticweb.processlogger.controller;
+package com.semanticweb.processlogger.inbound.controller;
 
-import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
-import com.semanticweb.processlogger.domain.Execution;
-import com.semanticweb.processlogger.service.ExecutionService;
+import com.semanticweb.processlogger.inbound.resources.ResourceCreationResponse;
+import com.semanticweb.processlogger.domain.resources.Execution;
+import com.semanticweb.processlogger.domain.applications.ExecutionService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.util.List;
 

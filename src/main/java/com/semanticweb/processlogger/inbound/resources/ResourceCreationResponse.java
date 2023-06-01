@@ -1,4 +1,4 @@
-package com.semanticweb.processlogger.controller.response;
+package com.semanticweb.processlogger.inbound.resources;
 
 public class ResourceCreationResponse {
 

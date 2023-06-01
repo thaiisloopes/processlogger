@@ -1,6 +1,6 @@
-package com.semanticweb.processlogger.repository;
+package com.semanticweb.processlogger.infrastructure.repository;
 
-import com.semanticweb.processlogger.domain.Triple;
+import com.semanticweb.processlogger.domain.resources.Triple;
 import com.stardog.ext.spring.SnarlTemplate;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +86,8 @@ public class TripleRepository {
     }
 
     public void save(List<Triple> triples) throws URISyntaxException {
-        logger.info("Calling StarDog from SnarlTemplate to save triples");
+        logger.info("" +
+                "Calling StarDog from SnarlTemplate to save triples");
         triples.forEach(
                 triple -> {
                     String value = triple.getValue();

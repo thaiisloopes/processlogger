@@ -1,13 +1,9 @@
-package com.semanticweb.processlogger.service;
+package com.semanticweb.processlogger.domain.applications;
 
-import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
-import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.domain.Execution;
-import com.semanticweb.processlogger.repository.TripleRepository;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.Resource;
+import com.semanticweb.processlogger.inbound.resources.ResourceCreationResponse;
+import com.semanticweb.processlogger.domain.resources.Triple;
+import com.semanticweb.processlogger.domain.resources.Execution;
+import com.semanticweb.processlogger.infrastructure.repository.TripleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;

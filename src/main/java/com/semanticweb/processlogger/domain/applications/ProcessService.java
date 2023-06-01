@@ -1,10 +1,10 @@
-package com.semanticweb.processlogger.service;
+package com.semanticweb.processlogger.domain.applications;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.semanticweb.processlogger.controller.response.ResourceCreationResponse;
-import com.semanticweb.processlogger.domain.Triple;
-import com.semanticweb.processlogger.domain.Process;
-import com.semanticweb.processlogger.repository.TripleRepository;
+import com.semanticweb.processlogger.inbound.resources.ResourceCreationResponse;
+import com.semanticweb.processlogger.domain.resources.Triple;
+import com.semanticweb.processlogger.domain.resources.Process;
+import com.semanticweb.processlogger.infrastructure.repository.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;

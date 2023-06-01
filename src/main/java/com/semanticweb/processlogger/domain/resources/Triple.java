@@ -1,4 +1,4 @@
-package com.semanticweb.processlogger.domain;
+package com.semanticweb.processlogger.domain.resources;
 public class Triple {
     String resource;
     String property;

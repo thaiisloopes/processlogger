@@ -1,8 +1,8 @@
 package com.semanticweb.processlogger.domain.applications;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.semanticweb.processlogger.domain.resources.Flow;
 import com.semanticweb.processlogger.domain.resources.Triple;
+import com.semanticweb.processlogger.domain.resources.User;
 import com.semanticweb.processlogger.inbound.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.infrastructure.repository.TripleRepository;
 import org.slf4j.Logger;
@@ -16,29 +16,29 @@ import static java.util.Arrays.asList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class FlowApplication {
-    private static final Logger logger = getLogger(FlowApplication.class);
+public class UserApplication {
+    private static final Logger logger = getLogger(UserApplication.class);
 
     @Autowired
     private TripleRepository repository;
 
-    public ResourceCreationResponse save(Flow flow) throws URISyntaxException {
-        logger.info("Calling repository to save a flow");
+    public ResourceCreationResponse save(User user) throws URISyntaxException {
+        logger.info("Calling repository to save an user");
 
-        List<Triple> flowToTriples = buildTriples(flow);
+        List<Triple> userToTriples = buildTriples(user);
 
-        repository.save(flowToTriples);
+        repository.save(userToTriples);
 
-        return buildResourceCreationResponse(flowToTriples);
+        return buildResourceCreationResponse(userToTriples);
     }
 
-    private List<Triple> buildTriples(Flow flow) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/flows/" + UlidCreator.getUlid();
+    private List<Triple> buildTriples(User user) {
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/users/" + UlidCreator.getUlid();
 
         return asList(
-                buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/saeg/ontologies/bpeo#Flow"),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", flow.getFlowStatus().toString()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#currentNode", flow.getCurrentNode().toString())
+                buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/saeg/ontologies/bpeo#User"),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#name", user.getName()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#password", user.getPassword())
         );
     }
 

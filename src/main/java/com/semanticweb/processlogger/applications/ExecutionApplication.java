@@ -99,7 +99,7 @@ public class ExecutionApplication {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#start", execution.getStart()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#end", execution.getEnd()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus())
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus().toString())
         );
     }
 
@@ -126,7 +126,7 @@ public class ExecutionApplication {
                         resourceUri),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#start", execution.getStart()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#end", execution.getEnd()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus())
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus().toString())
         );
     }
 
@@ -153,7 +153,7 @@ public class ExecutionApplication {
                         resourceUri),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#start", execution.getStart()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#end", execution.getEnd()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus())
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus().toString())
         );
     }
 

@@ -8,7 +8,7 @@ public class Execution {
     private String factor;
     private String start;
     private String end;
-    private String status;
+    private ActivityExecutionStatus status;
 
     public String getTime() {
         return time;
@@ -38,7 +38,7 @@ public class Execution {
         return end;
     }
 
-    public String getStatus() {
+    public ActivityExecutionStatus getStatus() {
         return status;
     }
 }

@@ -96,7 +96,10 @@ public class ExecutionApplication {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", execution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", execution.getFactor()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", execution.getTime()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace())
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#start", execution.getStart()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#end", execution.getEnd()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus())
         );
     }
 
@@ -120,7 +123,10 @@ public class ExecutionApplication {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
                 buildTriple("http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/executions/" + processExecutionId,
                         "http://purl.org/NET/c4dm/event.owl#sub_event",
-                        resourceUri)
+                        resourceUri),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#start", execution.getStart()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#end", execution.getEnd()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus())
         );
     }
 
@@ -144,7 +150,10 @@ public class ExecutionApplication {
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
                 buildTriple("http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/executions/" + processExecutionId,
                         "http://purl.org/NET/c4dm/event.owl#sub_event",
-                        resourceUri)
+                        resourceUri),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#start", execution.getStart()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#end", execution.getEnd()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", execution.getStatus())
         );
     }
 

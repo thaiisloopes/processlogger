@@ -17,9 +17,9 @@ import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class ExecutionService {
+public class ExecutionApplication {
 
-    private static final Logger logger = getLogger(ExecutionService.class);
+    private static final Logger logger = getLogger(ExecutionApplication.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
     @Autowired

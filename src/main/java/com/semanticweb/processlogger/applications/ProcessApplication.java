@@ -21,9 +21,9 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class ProcessService {
+public class ProcessApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProcessService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProcessApplication.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String PROCESS_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process";
     private static final String THING_CLASS_URI = "https://schema.org/Thing";

@@ -16,9 +16,9 @@ import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class QuestionService {
+public class QuestionApplication {
 
-    private static final Logger logger = getLogger(QuestionService.class);
+    private static final Logger logger = getLogger(QuestionApplication.class);
 
     @Autowired
     private TripleRepository repository;

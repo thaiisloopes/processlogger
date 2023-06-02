@@ -2,7 +2,7 @@ package com.semanticweb.processlogger.controllers;
 
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.applications.resources.Execution;
-import com.semanticweb.processlogger.applications.ExecutionService;
+import com.semanticweb.processlogger.applications.ExecutionApplication;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class ExecutionController {
     private static final Logger logger = getLogger(ExecutionController.class);
 
     @Autowired
-    private ExecutionService executionService;
+    private ExecutionApplication executionApplication;
 
     @PostMapping
     public ResponseEntity recordProcessExecution(
@@ -32,7 +32,7 @@ public class ExecutionController {
     ) throws URISyntaxException {
         logger.info("Calling service to record a process execution");
 
-        ResourceCreationResponse response = executionService.recordProcessExecution(execution, processId);
+        ResourceCreationResponse response = executionApplication.recordProcessExecution(execution, processId);
 
         return status(CREATED).body(response);
     }
@@ -46,7 +46,7 @@ public class ExecutionController {
     ) throws URISyntaxException {
         logger.info("Calling service to record a task execution related to a process Execution");
 
-        ResourceCreationResponse response = executionService.recordTaskExecution(
+        ResourceCreationResponse response = executionApplication.recordTaskExecution(
                 execution, processId, processExecutionId, taskId);
 
         return status(CREATED).body(response);
@@ -61,7 +61,7 @@ public class ExecutionController {
     ) throws URISyntaxException {
         logger.info("Calling service to record a subProcess execution related to a process Execution");
 
-        ResourceCreationResponse response = executionService.recordSubProcessExecution(
+        ResourceCreationResponse response = executionApplication.recordSubProcessExecution(
                 execution, processId, processExecutionId, subProcessId);
 
         return status(CREATED).body(response);
@@ -72,7 +72,7 @@ public class ExecutionController {
                                         @RequestParam String graph) {
         logger.info("Calling service to delete a list of process execution");
 
-        executionService.deleteProcessExecutionFrom(processes, graph);
+        executionApplication.deleteProcessExecutionFrom(processes, graph);
 
         return status(OK).build();
     }
@@ -81,7 +81,7 @@ public class ExecutionController {
     public ResponseEntity deleteGraph(@RequestParam String graph) {
         logger.info("Calling service to delete a complete graph");
 
-        executionService.deleteGraph(graph);
+        executionApplication.deleteGraph(graph);
 
         return status(OK).build();
     }

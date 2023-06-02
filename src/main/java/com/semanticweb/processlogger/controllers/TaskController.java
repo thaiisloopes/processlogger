@@ -2,7 +2,7 @@ package com.semanticweb.processlogger.controllers;
 
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.applications.resources.Task;
-import com.semanticweb.processlogger.applications.TaskService;
+import com.semanticweb.processlogger.applications.TaskApplication;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class TaskController {
     private static final Logger logger = getLogger(TaskController.class);
 
     @Autowired
-    private TaskService taskService;
+    private TaskApplication taskApplication;
 
     @GetMapping
     public String getAllTasks(@RequestHeader("Accept") String accept) {
@@ -32,7 +32,7 @@ public class TaskController {
         logger.info("Calling service to get all recorded tasks");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        taskService.getTasks().write(stream, format);
+        taskApplication.getTasks().write(stream, format);
 
         return stream.toString();
     }
@@ -41,7 +41,7 @@ public class TaskController {
     public ResponseEntity recordTask(@RequestBody Task task) throws URISyntaxException {
         logger.info("Calling service to record a task");
 
-        ResourceCreationResponse response = taskService.save(task);
+        ResourceCreationResponse response = taskApplication.save(task);
 
         return status(CREATED).body(response);
     }

@@ -1,7 +1,7 @@
 package com.semanticweb.processlogger.controllers;
 
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
-import com.semanticweb.processlogger.applications.ProcessService;
+import com.semanticweb.processlogger.applications.ProcessApplication;
 import com.semanticweb.processlogger.applications.resources.Process;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class ProcessController {
     private static final Logger logger = getLogger(ProcessController.class);
 
     @Autowired
-    private ProcessService processService;
+    private ProcessApplication processApplication;
 
     @GetMapping
     public String getAllProcess(@RequestHeader("Accept") String accept) {
@@ -32,7 +32,7 @@ public class ProcessController {
         logger.info("Calling service to get all recorded process");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        processService.getProcess().write(stream, format);
+        processApplication.getProcess().write(stream, format);
 
         return stream.toString();
     }
@@ -41,7 +41,7 @@ public class ProcessController {
     public ResponseEntity recordProcess(@RequestBody Process process) throws URISyntaxException {
         logger.info("Calling service to record all processes");
 
-        ResourceCreationResponse response = processService.save(process);
+        ResourceCreationResponse response = processApplication.save(process);
 
         return status(CREATED).body(response);
     }

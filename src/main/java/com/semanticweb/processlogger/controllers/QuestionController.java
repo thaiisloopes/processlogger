@@ -1,6 +1,6 @@
 package com.semanticweb.processlogger.controllers;
 
-import com.semanticweb.processlogger.applications.QuestionService;
+import com.semanticweb.processlogger.applications.QuestionApplication;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ public class QuestionController {
     private static final Logger logger = getLogger(QuestionController.class);
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionApplication questionApplication;
 
     @GetMapping("/executions/{processExecutionId}/activities")
     public String getAllActivities(
@@ -30,7 +30,7 @@ public class QuestionController {
         logger.info("Calling service to get all activities");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        questionService.getActivities(processId, processExecutionId).write(stream, format);
+        questionApplication.getActivities(processId, processExecutionId).write(stream, format);
 
         return stream.toString();
     }
@@ -45,7 +45,7 @@ public class QuestionController {
         logger.info("Calling service to get all processes executions with given taskId");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        questionService.getProcessesExecutionsWithTask(taskId).write(stream, format);
+        questionApplication.getProcessesExecutionsWithTask(taskId).write(stream, format);
 
         return stream.toString();
     }
@@ -60,7 +60,7 @@ public class QuestionController {
         logger.info("Calling service to get all objects related to given taskId");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        questionService.getObjectsFromTask(taskId).write(stream, format);
+        questionApplication.getObjectsFromTask(taskId).write(stream, format);
 
         return stream.toString();
     }

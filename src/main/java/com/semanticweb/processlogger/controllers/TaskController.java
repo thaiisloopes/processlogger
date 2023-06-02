@@ -19,14 +19,13 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
-
     private static final Logger logger = getLogger(TaskController.class);
 
     @Autowired
     private TaskApplication taskApplication;
 
     @GetMapping
-    public String getAllTasks(@RequestHeader("Accept") String accept) {
+    public String getAll(@RequestHeader("Accept") String accept) {
         String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
 
         logger.info("Calling service to get all recorded tasks");
@@ -38,8 +37,8 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity recordTask(@RequestBody Task task) throws URISyntaxException {
-        logger.info("Calling service to record a task");
+    public ResponseEntity save(@RequestBody Task task) throws URISyntaxException {
+        logger.info("Saving task");
 
         ResourceCreationResponse response = taskApplication.save(task);
 

@@ -19,17 +19,16 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("/processes")
 public class ProcessController {
-
     private static final Logger logger = getLogger(ProcessController.class);
 
     @Autowired
     private ProcessApplication processApplication;
 
     @GetMapping
-    public String getAllProcess(@RequestHeader("Accept") String accept) {
+    public String getAll(@RequestHeader("Accept") String accept) {
         String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
 
-        logger.info("Calling service to get all recorded process");
+        logger.info("Getting processes");
 
         OutputStream stream = new ByteArrayOutputStream() ;
         processApplication.getProcess().write(stream, format);
@@ -38,8 +37,8 @@ public class ProcessController {
     }
 
     @PostMapping
-    public ResponseEntity recordProcess(@RequestBody Process process) throws URISyntaxException {
-        logger.info("Calling service to record all processes");
+    public ResponseEntity save(@RequestBody Process process) throws URISyntaxException {
+        logger.info("Saving process");
 
         ResourceCreationResponse response = processApplication.save(process);
 

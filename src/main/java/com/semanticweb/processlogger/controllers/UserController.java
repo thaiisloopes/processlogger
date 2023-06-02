@@ -25,10 +25,9 @@ public class UserController {
     @Autowired
     private UserApplication userApplication;
 
-
     @PostMapping
-    public ResponseEntity recordAgent(@RequestBody User user) throws URISyntaxException {
-        logger.info("Calling service to record an user");
+    public ResponseEntity save(@RequestBody User user) throws URISyntaxException {
+        logger.info("Saving user");
 
         ResourceCreationResponse response = userApplication.save(user);
 

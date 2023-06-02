@@ -29,7 +29,7 @@ public class QuestionApplication {
         String queryString = "PREFIX event: <http://purl.org/saeg/schemas/event#> " +
                 "SELECT ?activity " +
                 "WHERE { " +
-                "<http://www.example.com/processes/" + processId + "/executions/" + processExecutionId + "> " +
+                "<http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/executions/" + processExecutionId + "> " +
                 "event:transitive_sub_event ?activity. }";
 
         List<List<Triple>> activitiesTriples = repository.getActivities(queryString);
@@ -40,7 +40,7 @@ public class QuestionApplication {
     public Model getProcessesExecutionsWithTask(String taskId) {
         logger.info("Calling repository to get all processes executions for given taskId");
 
-        String queryString = "PREFIX event: <http://purl.org/saeg/schemas/event#> SELECT ?execution WHERE { ?execution event:transitive_sub_event ?taskExecution. ?taskExecution a <http://www.example.com/tasks/" + taskId + ">.}";
+        String queryString = "PREFIX event: <http://purl.org/saeg/schemas/event#> SELECT ?execution WHERE { ?execution event:transitive_sub_event ?taskExecution. ?taskExecution a <http://purl.org/saeg/ontologies/bpeo/tasks/" + taskId + ">.}";
 
         List<List<Triple>> processesExecutionsTriples = repository.getProcessesExecutions(queryString);
 
@@ -50,7 +50,7 @@ public class QuestionApplication {
     public Model getObjectsFromTask(String taskId) {
         logger.info("Calling repository to get all objects for given taskId");
 
-        String queryString = "PREFIX event: <http://purl.org/NET/c4dm/event.owl#> PREFIX event2: <http://purl.org/saeg/schemas/event#> SELECT ?object WHERE { ?execution event2:transitive_sub_event ?taskExecution. ?taskExecution a <http://www.example.com/tasks/" + taskId + ">. ?taskExecution event:factor ?object. }";
+        String queryString = "PREFIX event: <http://purl.org/NET/c4dm/event.owl#> PREFIX event2: <http://purl.org/saeg/schemas/event#> SELECT ?object WHERE { ?execution event2:transitive_sub_event ?taskExecution. ?taskExecution a <http://purl.org/saeg/ontologies/bpeo/tasks/" + taskId + ">. ?taskExecution event:factor ?object. }";
 
         List<List<Triple>> objectsTriples = repository.getObjects(queryString);
 

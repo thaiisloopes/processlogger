@@ -87,11 +87,11 @@ public class ExecutionApplication {
     }
 
     private List<Triple> buildProcessTriples(Execution execution, String processId) {
-        String resourceUri = "http://www.example.com/processes/" + processId + "/executions/" + getUlid();
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/executions/" + getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/NET/c4dm/event.owl#Event"),
-                buildTriple(resourceUri, RDF_TYPE_URI, "http://www.example.com/processes/" + processId),
+                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo/processes/" + processId),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#agent", execution.getAgent()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", execution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", execution.getFactor()),
@@ -106,19 +106,19 @@ public class ExecutionApplication {
             String processExecutionId,
             String taskId
     ) {
-        String resourceUri = "http://www.example.com/processes/" + processId
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId
                 + "/executions/" + processExecutionId
                 + "/tasks/" + taskId + "/executions/" + getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/NET/c4dm/event.owl#Event"),
-                buildTriple(resourceUri, RDF_TYPE_URI, "http://www.example.com/tasks/" + taskId),
+                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo/tasks/" + taskId),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#agent", execution.getAgent()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", execution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", execution.getFactor()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", execution.getTime()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
-                buildTriple("http://www.example.com/processes/" + processId + "/executions/" + processExecutionId,
+                buildTriple("http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/executions/" + processExecutionId,
                         "http://purl.org/NET/c4dm/event.owl#sub_event",
                         resourceUri)
         );
@@ -130,19 +130,19 @@ public class ExecutionApplication {
             String processExecutionId,
             String subProcessId
     ) {
-        String resourceUri = "http://www.example.com/processes/" + processId
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId
                 + "/executions/" + processExecutionId
                 + "/processes/" + subProcessId + "/executions/" + getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/NET/c4dm/event.owl#Event"),
-                buildTriple(resourceUri, RDF_TYPE_URI, "http://www.example.com/processes/" + subProcessId),
+                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo/processes/" + subProcessId),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#agent", execution.getAgent()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#product", execution.getProduct()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#factor", execution.getFactor()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", execution.getTime()),
                 buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#place", execution.getPlace()),
-                buildTriple("http://www.example.com/processes/" + processId + "/executions/" + processExecutionId,
+                buildTriple("http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/executions/" + processExecutionId,
                         "http://purl.org/NET/c4dm/event.owl#sub_event",
                         resourceUri)
         );

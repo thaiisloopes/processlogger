@@ -25,10 +25,9 @@ public class FlowController {
     @Autowired
     private FlowApplication flowApplication;
 
-
     @PostMapping
-    public ResponseEntity recordAgent(@RequestBody Flow flow) throws URISyntaxException {
-        logger.info("Calling service to record a flow");
+    public ResponseEntity save(@RequestBody Flow flow) throws URISyntaxException {
+        logger.info("Saving flow");
 
         ResourceCreationResponse response = flowApplication.save(flow);
 

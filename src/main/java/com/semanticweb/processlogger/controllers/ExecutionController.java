@@ -19,7 +19,6 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 @RequestMapping("/processes/{processId}/executions")
 public class ExecutionController {
-
     private static final Logger logger = getLogger(ExecutionController.class);
 
     @Autowired

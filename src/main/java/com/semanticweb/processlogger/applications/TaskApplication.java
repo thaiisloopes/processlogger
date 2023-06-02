@@ -65,7 +65,7 @@ public class TaskApplication {
     }
 
     private List<Triple> buildTaskTriples(Task task) {
-        String resourceUri = "\"http://purl.org/saeg/ontologies/bpeo/tasks/" + UlidCreator.getUlid();
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/tasks/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_TASK_CLASS_URI),

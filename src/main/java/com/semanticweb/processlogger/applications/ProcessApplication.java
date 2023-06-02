@@ -35,7 +35,7 @@ public class ProcessApplication {
     private TripleRepository repository;
 
     public Model getProcess() {
-        logger.info("Calling repository to get all recorded process");
+        logger.info("Calling repository to get all processes");
 
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 

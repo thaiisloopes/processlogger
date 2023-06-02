@@ -33,7 +33,7 @@ public class TaskApplication {
     private TripleRepository repository;
 
     public Model getTasks() {
-        logger.info("Calling repository to get all recorded tasks");
+        logger.info("Calling repository to get all tasks");
 
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 

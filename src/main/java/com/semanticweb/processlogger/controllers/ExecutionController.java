@@ -25,42 +25,42 @@ public class ExecutionController {
     private ExecutionApplication executionApplication;
 
     @PostMapping
-    public ResponseEntity recordProcessExecution(
+    public ResponseEntity saveProcessExecution(
             @RequestBody Execution execution,
             @PathVariable String processId
     ) throws URISyntaxException {
-        logger.info("Calling service to record a process execution");
+        logger.info("Calling service to save a process execution");
 
-        ResourceCreationResponse response = executionApplication.recordProcessExecution(execution, processId);
+        ResourceCreationResponse response = executionApplication.saveProcessExecution(execution, processId);
 
         return status(CREATED).body(response);
     }
 
     @PostMapping("/{processExecutionId}/tasks/{taskId}/executions")
-    public ResponseEntity recordTaskExecution(
+    public ResponseEntity saveTaskExecution(
             @RequestBody Execution execution,
             @PathVariable String processId,
             @PathVariable String processExecutionId,
             @PathVariable String taskId
     ) throws URISyntaxException {
-        logger.info("Calling service to record a task execution related to a process Execution");
+        logger.info("Calling service to save a task execution related to a process Execution");
 
-        ResourceCreationResponse response = executionApplication.recordTaskExecution(
+        ResourceCreationResponse response = executionApplication.saveTaskExecution(
                 execution, processId, processExecutionId, taskId);
 
         return status(CREATED).body(response);
     }
 
     @PostMapping("/{processExecutionId}/processes/{subProcessId}/executions")
-    public ResponseEntity recordSubProcessExecution(
+    public ResponseEntity saveSubProcessExecution(
             @RequestBody Execution execution,
             @PathVariable String processId,
             @PathVariable String processExecutionId,
             @PathVariable String subProcessId
     ) throws URISyntaxException {
-        logger.info("Calling service to record a subProcess execution related to a process Execution");
+        logger.info("Calling service to save a subProcess execution related to a process Execution");
 
-        ResourceCreationResponse response = executionApplication.recordSubProcessExecution(
+        ResourceCreationResponse response = executionApplication.saveSubProcessExecution(
                 execution, processId, processExecutionId, subProcessId);
 
         return status(CREATED).body(response);

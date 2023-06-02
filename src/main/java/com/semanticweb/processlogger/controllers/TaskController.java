@@ -28,7 +28,7 @@ public class TaskController {
     public String getAll(@RequestHeader("Accept") String accept) {
         String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
 
-        logger.info("Calling service to get all recorded tasks");
+        logger.info("Calling service to get all tasks");
 
         OutputStream stream = new ByteArrayOutputStream() ;
         taskApplication.getTasks().write(stream, format);

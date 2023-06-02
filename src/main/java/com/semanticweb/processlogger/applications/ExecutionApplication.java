@@ -25,7 +25,7 @@ public class ExecutionApplication {
     @Autowired
     private TripleRepository repository;
 
-    public ResourceCreationResponse recordProcessExecution(Execution execution, String processId) throws URISyntaxException {
+    public ResourceCreationResponse saveProcessExecution(Execution execution, String processId) throws URISyntaxException {
         logger.info("Calling repository to save a process execution");
 
         List<Triple> processExecutionToEvent = buildProcessTriples(execution, processId);
@@ -35,7 +35,7 @@ public class ExecutionApplication {
         return buildResourceCreationResponse(processExecutionToEvent);
     }
 
-    public ResourceCreationResponse recordTaskExecution(
+    public ResourceCreationResponse saveTaskExecution(
             Execution execution,
             String processId,
             String processExecutionId,
@@ -50,7 +50,7 @@ public class ExecutionApplication {
         return buildResourceCreationResponse(taskExecutionToEvent);
     }
 
-    public ResourceCreationResponse recordSubProcessExecution(
+    public ResourceCreationResponse saveSubProcessExecution(
             Execution execution,
             String processId,
             String processExecutionId,

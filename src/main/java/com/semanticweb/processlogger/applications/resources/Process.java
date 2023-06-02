@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Process {
 
-    String name;
-    String description;
-    List<String> hasPart;
+    private String name;
+    private String description;
+    private List<String> hasPart;
 
     public String getName() {
         return name;

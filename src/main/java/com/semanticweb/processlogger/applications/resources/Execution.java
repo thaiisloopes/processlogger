@@ -1,11 +1,14 @@
 package com.semanticweb.processlogger.applications.resources;
 
 public class Execution {
-    String time;
-    String agent;
-    String place;
-    String product;
-    String factor;
+    private String time;
+    private String agent;
+    private String place;
+    private String product;
+    private String factor;
+    private String start;
+    private String end;
+    private String status;
 
     public String getTime() {
         return time;
@@ -25,5 +28,17 @@ public class Execution {
 
     public String getFactor() {
         return factor;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

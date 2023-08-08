@@ -35,7 +35,7 @@ public class TripleRepository {
         logger.info("Calling StarDog from SnarlTemplate to get activities");
 
         List<String> activities = snarlTemplate.query(queryString, bindingSet ->
-                bindingSet.get("activity").toString()
+                requireNonNull(bindingSet.get("activity")).toString()
         );
 
         return activities.stream().map(
@@ -43,8 +43,8 @@ public class TripleRepository {
                         "select ?p ?o where { <" + activity + "> ?p ?o. }",
                         bindingSet -> new Triple(
                                 activity,
-                                bindingSet.get("p").toString(),
-                                bindingSet.get("o").toString()
+                                requireNonNull(bindingSet.get("p")).toString(),
+                                requireNonNull(bindingSet.get("o")).toString()
                         ))
         ).collect(toList());
     }
@@ -53,7 +53,7 @@ public class TripleRepository {
         logger.info("Calling StarDog from SnarlTemplate to get processes executions for given taskId");
 
         List<String> executions = snarlTemplate.query(queryString, bindingSet ->
-                bindingSet.get("execution").toString()
+                requireNonNull(bindingSet.get("execution")).toString()
         );
 
         return executions.stream().map(
@@ -61,8 +61,8 @@ public class TripleRepository {
                         "select ?p ?o where { <" + execution + "> ?p ?o. }",
                         bindingSet -> new Triple(
                                 execution,
-                                bindingSet.get("p").toString(),
-                                bindingSet.get("o").toString()
+                                requireNonNull(bindingSet.get("p")).toString(),
+                                requireNonNull(bindingSet.get("o")).toString()
                         ))
         ).collect(toList());
     }
@@ -71,7 +71,7 @@ public class TripleRepository {
         logger.info("Calling StarDog from SnarlTemplate to get objects for given taskId");
 
         List<String> objects = snarlTemplate.query(queryString, bindingSet ->
-                bindingSet.get("object").toString()
+                requireNonNull(bindingSet.get("object")).toString()
         );
 
         return objects.stream().map(
@@ -79,8 +79,8 @@ public class TripleRepository {
                         "select ?p ?o where { <" + object + "> ?p ?o. }",
                         bindingSet -> new Triple(
                                 object,
-                                bindingSet.get("p").toString(),
-                                bindingSet.get("o").toString()
+                                requireNonNull(bindingSet.get("p")).toString(),
+                                requireNonNull(bindingSet.get("o")).toString()
                         ))
         ).collect(toList());
     }
@@ -93,7 +93,7 @@ public class TripleRepository {
                     String value = triple.getValue();
 
                     try {
-                        if(value.contains("http")) {
+                        if (value.contains("http")) {
                             snarlTemplate.add(
 
                                     new URI(triple.getResource()),

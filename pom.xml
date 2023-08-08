@@ -28,8 +28,9 @@
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
 			<type>pom</type>
-			<version>LATEST</version>
+			<version>4.1.0</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
@@ -121,13 +122,6 @@
 		<dependency>
 			<groupId>com.complexible.stardog</groupId>
 			<artifactId>client-http</artifactId>
-			<version>LATEST</version>
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>com.complexible.stardog</groupId>
-			<artifactId>server</artifactId>
 			<version>LATEST</version>
 			<type>pom</type>
 		</dependency>

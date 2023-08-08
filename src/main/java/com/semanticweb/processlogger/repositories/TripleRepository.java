@@ -86,8 +86,7 @@ public class TripleRepository {
     }
 
     public void save(List<Triple> triples) throws URISyntaxException {
-        logger.info("" +
-                "Calling StarDog from SnarlTemplate to save triples");
+        logger.info("Calling StarDog from SnarlTemplate to save triples");
         triples.forEach(
                 triple -> {
                     String value = triple.getValue();

@@ -15,6 +15,7 @@
 	<description>Application for logging process execution in a semantic database</description>
 	<properties>
 		<java.version>11</java.version>
+		<stardog.version>7.9.1</stardog.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -28,20 +29,25 @@
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
 			<type>pom</type>
-			<version>4.1.0</version>
+			<version>4.9.0</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-text</artifactId>
-			<version>4.1.0</version>
+			<version>4.9.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
-			<version>4.1.0</version>
+			<version>4.9.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-core</artifactId>
+			<version>4.9.0</version>
 		</dependency>
 
 		<dependency>
@@ -78,7 +84,6 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<optional>true</optional>
 			<version>1.7.32</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -104,7 +109,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.13.2</version>
-			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -122,26 +126,7 @@
 		<dependency>
 			<groupId>com.complexible.stardog</groupId>
 			<artifactId>client-http</artifactId>
-			<version>LATEST</version>
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>com.complexible.stardog.rdf4j</groupId>
-			<artifactId>stardog-rdf4j</artifactId>
-			<version>LATEST</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.complexible.stardog.sesame</groupId>
-			<artifactId>stardog-sesame-core</artifactId>
-			<version>LATEST</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.complexible.stardog.jena</groupId>
-			<artifactId>stardog-jena</artifactId>
-			<version>LATEST</version>
+			<version>8.2.2</version>
 		</dependency>
 
 		<dependency>
@@ -153,26 +138,42 @@
 		<dependency>
 			<groupId>com.stardog.ext</groupId>
 			<artifactId>stardog-spring</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.stardog.ext</groupId>
 			<artifactId>stardog-spring-batch</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.stardog.stark.query.io</groupId>
+			<artifactId>stardog-stark-query-xml</artifactId>
+			<version>8.2.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.7.14</version>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

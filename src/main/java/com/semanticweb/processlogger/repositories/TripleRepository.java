@@ -1,7 +1,9 @@
 package com.semanticweb.processlogger.repositories;
 
 import com.semanticweb.processlogger.repositories.resources.Triple;
+import com.stardog.ext.spring.RowMapper;
 import com.stardog.ext.spring.SnarlTemplate;
+import com.stardog.stark.query.BindingSet;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,18 +19,24 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Repository
 public class TripleRepository {
 
-    private static final Logger logger = getLogger(TripleRepository.class);
+    static final Logger logger = getLogger(TripleRepository.class);
 
     @Autowired
-    SnarlTemplate snarlTemplate;
+    public SnarlTemplate snarlTemplate;
 
     public List<Triple> get(String queryString) {
         logger.info("Calling StarDog from SnarlTemplate to get all triples.");
-        return snarlTemplate.query(queryString, bindingSet -> new Triple(
-                requireNonNull(bindingSet.get("s")).toString(),
-                requireNonNull(bindingSet.get("p")).toString(),
-                requireNonNull(bindingSet.get("o")).toString()
-        ));
+
+        return snarlTemplate.query(queryString, new RowMapper<Triple>() {
+            @Override
+            public Triple mapRow(BindingSet bindingSet) {
+                return new Triple(
+                        requireNonNull(bindingSet.get("s")).toString(),
+                        requireNonNull(bindingSet.get("p")).toString(),
+                        requireNonNull(bindingSet.get("o")).toString()
+                );
+            }
+        });
     }
 
     public List<List<Triple>> getActivities(String queryString) {
@@ -94,7 +102,6 @@ public class TripleRepository {
                     try {
                         if (value.contains("http")) {
                             snarlTemplate.add(
-
                                     new URI(triple.getResource()),
                                     new URI(triple.getProperty()),
                                     new URI(value)

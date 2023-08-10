@@ -3,15 +3,8 @@ package com.semanticweb.processlogger.applications.metamodel.resources;
 import java.util.List;
 
 public class Process {
-    //TODO: validar os outros ToDos
-    //TODO: Validar que Controller e Application de Process e Task estão fazendo o desejado
-    private String name;
     private String description;
     private List<String> hasPart;
-
-    public String getName() {
-        return name;
-    }
 
     public String getDescription() {
         return description;

@@ -27,7 +27,6 @@ public class ProcessApplication {
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String PROCESS_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process";
     private static final String THING_CLASS_URI = "https://schema.org/Thing";
-    private static final String SCHEMA_NAME_PROPERTY_URI = "https://schema.org/name";
     private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
     private static final String BBO_HAS_PART_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_part";
 
@@ -75,7 +74,6 @@ public class ProcessApplication {
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, PROCESS_CLASS_URI),
                 buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
-                buildTriple(resourceUri, SCHEMA_NAME_PROPERTY_URI, process.getName()),
                 buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, process.getDescription())
         );
     }

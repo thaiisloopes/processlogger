@@ -1,4 +1,4 @@
-package com.semanticweb.processlogger.applications.resources;
+package com.semanticweb.processlogger.applications.metamodel.resources;
 
 public class Task {
     private String name;

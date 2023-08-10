@@ -1,8 +1,8 @@
-package com.semanticweb.processlogger.controllers;
+package com.semanticweb.processlogger.controllers.metamodel;
 
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
-import com.semanticweb.processlogger.applications.ProcessApplication;
-import com.semanticweb.processlogger.applications.resources.Process;
+import com.semanticweb.processlogger.applications.metamodel.resources.Task;
+import com.semanticweb.processlogger.applications.metamodel.TaskApplication;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,30 +17,30 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/processes")
-public class ProcessController {
-    private static final Logger logger = getLogger(ProcessController.class);
+@RequestMapping("/tasks")
+public class TaskController {
+    private static final Logger logger = getLogger(TaskController.class);
 
     @Autowired
-    private ProcessApplication processApplication;
+    private TaskApplication taskApplication;
 
     @GetMapping
     public String getAll(@RequestHeader("Accept") String accept) {
         String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
 
-        logger.info("Getting processes");
+        logger.info("Calling service to get all tasks");
 
         OutputStream stream = new ByteArrayOutputStream() ;
-        processApplication.getProcess().write(stream, format);
+        taskApplication.getTasks().write(stream, format);
 
         return stream.toString();
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody Process process) throws URISyntaxException {
-        logger.info("Saving process");
+    public ResponseEntity save(@RequestBody Task task) throws URISyntaxException {
+        logger.info("Saving task");
 
-        ResourceCreationResponse response = processApplication.save(process);
+        ResourceCreationResponse response = taskApplication.save(task);
 
         return status(CREATED).body(response);
     }

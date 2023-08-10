@@ -1,9 +1,9 @@
-package com.semanticweb.processlogger.applications;
+package com.semanticweb.processlogger.applications.metamodel;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.repositories.resources.Triple;
-import com.semanticweb.processlogger.applications.resources.Process;
+import com.semanticweb.processlogger.applications.metamodel.resources.Process;
 import com.semanticweb.processlogger.repositories.TripleRepository;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -37,6 +37,7 @@ public class ProcessApplication {
     public Model getProcess() {
         logger.info("Calling repository to get all processes");
 
+        //TODO: precisa adaptar essa query pra pegar todas as URIs dos processos
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();

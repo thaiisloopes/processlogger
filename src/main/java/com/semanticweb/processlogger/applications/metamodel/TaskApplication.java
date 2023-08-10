@@ -1,8 +1,8 @@
-package com.semanticweb.processlogger.applications;
+package com.semanticweb.processlogger.applications.metamodel;
 
 import com.github.f4b6a3.ulid.UlidCreator;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
-import com.semanticweb.processlogger.applications.resources.Task;
+import com.semanticweb.processlogger.applications.metamodel.resources.Task;
 import com.semanticweb.processlogger.repositories.resources.Triple;
 import com.semanticweb.processlogger.repositories.TripleRepository;
 import org.apache.jena.rdf.model.Model;
@@ -35,6 +35,7 @@ public class TaskApplication {
     public Model getTasks() {
         logger.info("Calling repository to get all tasks");
 
+        //TODO: precisa adaptar essa query pra pegar todas as URIs das tarefas
         String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
 
         Model model = ModelFactory.createDefaultModel();

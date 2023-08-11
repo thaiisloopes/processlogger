@@ -25,10 +25,9 @@ public class ProcessApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(ProcessApplication.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    private static final String PROCESS_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process";
-    private static final String THING_CLASS_URI = "https://schema.org/Thing";
-    private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
-    private static final String BBO_HAS_PART_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_part";
+    private static final String BBO_PROCESS_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process";
+    private static final String BBO_FLOW_ELEMENTS_CONTAINER_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#FlowElementsContainer";
+    private static final String BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_flowElements";
 
     @Autowired
     private TripleRepository repository;
@@ -56,10 +55,8 @@ public class ProcessApplication {
         logger.info("Calling repository to save a process");
 
         List<Triple> processToTriples = buildProcessTriples(process);
-        List<Triple> hasPartToTriples = buildHasPartTriples(process, processToTriples.get(0).getResource());
 
         repository.save(processToTriples);
-        repository.save(hasPartToTriples);
 
         return buildResourceCreationResponse(processToTriples);
     }
@@ -71,17 +68,18 @@ public class ProcessApplication {
     private List<Triple> buildProcessTriples(Process process) {
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + UlidCreator.getUlid();
 
-        return asList(
-                buildTriple(resourceUri, RDF_TYPE_URI, PROCESS_CLASS_URI),
-                buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
-                buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, process.getDescription())
+        List<Triple> triples = asList(
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_PROCESS_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_ELEMENTS_CONTAINER_CLASS_URI)
         );
-    }
 
-    private List<Triple> buildHasPartTriples(Process process, String uri) {
-        return process.getHasPart().stream()
-                .map(part -> buildTriple(uri, BBO_HAS_PART_PROPERTY_URI, part))
-                .collect(toList());
+        triples.addAll(
+                process.getFlowElements().stream().map(flowElement ->
+                    buildTriple(resourceUri, BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI, flowElement)
+                ).collect(toList())
+        );
+
+        return triples;
     }
 
     private Triple buildTriple(String resource, String property, String value) {

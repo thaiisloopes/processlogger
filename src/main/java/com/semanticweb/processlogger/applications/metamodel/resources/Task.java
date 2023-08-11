@@ -1,9 +1,14 @@
 package com.semanticweb.processlogger.applications.metamodel.resources;
 
 public class Task {
-    private String description;
+    private String name;
+    private String inputOutputSpecification;
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
+    }
+
+    public String getInputOutputSpecification() {
+        return inputOutputSpecification;
     }
 }

@@ -10,14 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
 public class RoleApplication {
     private static final Logger logger = getLogger(RoleApplication.class);
+    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+    private static final String BBO_ROLE_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Role";
+    private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
+    private static final String BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#is_responsibleFor";
 
     @Autowired
     private TripleRepository repository;
@@ -31,11 +36,22 @@ public class RoleApplication {
 
         return buildResourceCreationResponse(roleToTriples);
     }
+
     private List<Triple> buildTriples(Role role) {
-        //TODO: validar como serao registrados as instancias dos modelos
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/resources/" + UlidCreator.getUlid();
 
-        return Collections.emptyList();
+        List<Triple> triples = asList(
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_ROLE_CLASS_URI),
+                buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, role.getName())
+        );
+
+        triples.addAll(
+                role.getRelatedActivities().stream().map(activity ->
+                        buildTriple(resourceUri, BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI, activity)
+                ).collect(toList())
+        );
+
+        return triples;
     }
 
     private Triple buildTriple(String resource, String property, String value) {

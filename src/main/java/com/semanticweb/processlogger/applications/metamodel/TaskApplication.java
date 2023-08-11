@@ -23,9 +23,12 @@ public class TaskApplication {
 
     private static final Logger logger = getLogger(TaskApplication.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    private static final String THING_CLASS_URI = "https://schema.org/Thing";
-    private static final String SCHEMA_DESCRIPTION_PROPERTY_URI = "https://schema.org/description";
     private static final String BBO_TASK_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Task";
+    private static final String BBO_ACTIVITY_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Activity";
+    private static final String BBO_FLOW_NODE_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#FlowNode";
+    private static final String BBO_FLOW_ELEMENT_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#FlowElement";
+    private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
+    private static final String BBO_HAS_IO_SPECIFICATION_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_ioSpecification";
 
     @Autowired
     private TripleRepository repository;
@@ -68,8 +71,11 @@ public class TaskApplication {
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_TASK_CLASS_URI),
-                buildTriple(resourceUri, RDF_TYPE_URI, THING_CLASS_URI),
-                buildTriple(resourceUri, SCHEMA_DESCRIPTION_PROPERTY_URI, task.getDescription())
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_ACTIVITY_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_NODE_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_ELEMENT_CLASS_URI),
+                buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, task.getName()),
+                buildTriple(resourceUri, BBO_HAS_IO_SPECIFICATION_PROPERTY_URI, task.getInputOutputSpecification())
         );
     }
 

@@ -11,14 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
 
+import static java.util.Arrays.asList;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class ResourceApplication {
     private static final Logger logger = getLogger(ResourceApplication.class);
+
+    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+    private static final String BBO_RESOURCE_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Resource";
+    private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
 
     @Autowired
     private TripleRepository repository;
@@ -33,10 +37,12 @@ public class ResourceApplication {
         return buildResourceCreationResponse(resourceToTriples);
     }
     private List<Triple> buildTriples(Resource resource) {
-        //TODO: validar como serao registrados as instancias dos modelos
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/resources/" + UlidCreator.getUlid();
 
-        return Collections.emptyList();
+        return asList(
+                buildTriple(resourceUri, RDF_TYPE_URI, BBO_RESOURCE_CLASS_URI),
+                buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, resource.getName())
+        );
     }
 
     private Triple buildTriple(String resource, String property, String value) {

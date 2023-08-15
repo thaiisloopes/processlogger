@@ -3,7 +3,6 @@ package com.semanticweb.processlogger.applications.metamodel.resources;
 public class Task {
     private String name;
     private String inputOutputSpecification;
-
     private String role;
 
     public String getName() {

@@ -37,7 +37,7 @@ public class InputOutputSpecificationApplication {
         return buildResourceCreationResponse(inputOutputSpecificationToTriples);
     }
     private List<Triple> buildTriples(InputOutputSpecification inputOutputSpecification) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/resources/" + UlidCreator.getUlid();
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/inputoutputspecifications/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_INPUT_OUTPUT_SPECIFICATION_CLASS_URI),

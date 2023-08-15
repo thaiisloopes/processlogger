@@ -22,7 +22,6 @@ public class RoleApplication {
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String BBO_ROLE_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Role";
     private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
-    private static final String BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#is_responsibleFor";
 
     @Autowired
     private TripleRepository repository;
@@ -38,20 +37,12 @@ public class RoleApplication {
     }
 
     private List<Triple> buildTriples(Role role) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/resources/" + UlidCreator.getUlid();
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/roles/" + UlidCreator.getUlid();
 
-        List<Triple> triples = asList(
+        return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_ROLE_CLASS_URI),
                 buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, role.getName())
         );
-
-        triples.addAll(
-                role.getRelatedActivities().stream().map(activity ->
-                        buildTriple(resourceUri, BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI, activity)
-                ).collect(toList())
-        );
-
-        return triples;
     }
 
     private Triple buildTriple(String resource, String property, String value) {

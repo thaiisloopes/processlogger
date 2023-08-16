@@ -1,7 +1,7 @@
-package com.semanticweb.processlogger.applications;
+package com.semanticweb.processlogger.applications.execution;
 
 import com.github.f4b6a3.ulid.UlidCreator;
-import com.semanticweb.processlogger.applications.resources.Flow;
+import com.semanticweb.processlogger.applications.execution.resources.Flow;
 import com.semanticweb.processlogger.repositories.resources.Triple;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.repositories.TripleRepository;
@@ -10,14 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
 public class FlowApplication {
     private static final Logger logger = getLogger(FlowApplication.class);
+    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 
     @Autowired
     private TripleRepository repository;
@@ -35,11 +38,22 @@ public class FlowApplication {
     private List<Triple> buildTriples(Flow flow) {
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/flows/" + UlidCreator.getUlid();
 
-        return asList(
-                buildTriple(resourceUri, "http://www.w3.org/2000/01/rdf-schema#Class", "http://purl.org/saeg/ontologies/bpeo#Flow"),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#status", flow.getFlowStatus().toString()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#currentNode", flow.getCurrentNode().toString())
+        List<Triple> triples = new ArrayList<>();
+
+        triples.addAll(asList(
+                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Flow"),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#flowStatus", flow.getFlowStatus().toString()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#from", flow.getFrom()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#to", flow.getTo())
+        ));
+
+        triples.addAll(
+                flow.getSteps().stream().map(step ->
+                        buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#step", step)
+                ).collect(toList())
         );
+
+        return triples;
     }
 
     private Triple buildTriple(String resource, String property, String value) {

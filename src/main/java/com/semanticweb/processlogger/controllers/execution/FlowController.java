@@ -1,7 +1,7 @@
-package com.semanticweb.processlogger.controllers;
+package com.semanticweb.processlogger.controllers.execution;
 
-import com.semanticweb.processlogger.applications.FlowApplication;
-import com.semanticweb.processlogger.applications.resources.Flow;
+import com.semanticweb.processlogger.applications.execution.FlowApplication;
+import com.semanticweb.processlogger.applications.execution.resources.Flow;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

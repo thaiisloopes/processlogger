@@ -42,7 +42,7 @@ public class PerformerApplication {
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Performer"),
-                buildTriple(resourceUri, RDF_TYPE_URI, BBO_ROLE_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, performer.getRole()),
                 buildTriple(resourceUri, BBO_PLAYS_PROPERTY_URI, performer.getRole()),
                 buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, performer.getName()),
                 buildTriple(resourceUri, FOAF_NAME_PROPERTY_URI, performer.getName())

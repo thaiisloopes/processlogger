@@ -19,7 +19,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class ArgumentApplication {
     private static final Logger logger = getLogger(ArgumentApplication.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
-    private static final String BBO_RESOURCE_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Resource";
     private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
 
     @Autowired
@@ -40,7 +39,7 @@ public class ArgumentApplication {
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Argument"),
-                buildTriple(resourceUri, RDF_TYPE_URI, BBO_RESOURCE_CLASS_URI),
+                buildTriple(resourceUri, RDF_TYPE_URI, argument.getResourceType()),
                 buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, argument.getName()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#value", argument.getValue())
         );

@@ -1,7 +1,7 @@
-package com.semanticweb.processlogger.controllers;
+package com.semanticweb.processlogger.controllers.execution;
 
-import com.semanticweb.processlogger.applications.UserApplication;
-import com.semanticweb.processlogger.applications.resources.User;
+import com.semanticweb.processlogger.applications.execution.PerformerApplication;
+import com.semanticweb.processlogger.applications.execution.resources.Performer;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
-    private static final Logger logger = getLogger(UserController.class);
+@RequestMapping("/performers")
+public class PerformerController {
+    private static final Logger logger = getLogger(PerformerController.class);
 
     @Autowired
-    private UserApplication userApplication;
+    private PerformerApplication performerApplication;
 
     @PostMapping
-    public ResponseEntity save(@RequestBody User user) throws URISyntaxException {
-        logger.info("Saving user");
+    public ResponseEntity save(@RequestBody Performer performer) throws URISyntaxException {
+        logger.info("Saving performer");
 
-        ResourceCreationResponse response = userApplication.save(user);
+        ResourceCreationResponse response = performerApplication.save(performer);
 
         return status(CREATED).body(response);
     }

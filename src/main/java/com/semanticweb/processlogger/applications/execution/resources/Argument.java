@@ -3,7 +3,7 @@ package com.semanticweb.processlogger.applications.execution.resources;
 public class Argument {
     private String name;
     private String value;
-    private String resourceType;
+    private String type;
 
     public String getName() {
         return name;
@@ -13,7 +13,7 @@ public class Argument {
         return value;
     }
 
-    public String getResourceType() {
-        return resourceType;
+    public String getType() {
+        return type;
     }
 }

@@ -39,7 +39,7 @@ public class ArgumentApplication {
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Argument"),
-                buildTriple(resourceUri, RDF_TYPE_URI, argument.getResourceType()),
+                buildTriple(resourceUri, RDF_TYPE_URI, argument.getType()),
                 buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, argument.getName()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#value", argument.getValue())
         );

@@ -1,5 +1,7 @@
 package com.semanticweb.processlogger.applications.resources;
 
+import com.semanticweb.processlogger.applications.execution.resources.ActivityExecutionStatus;
+
 public class Execution {
     private String time;
     private String agent;

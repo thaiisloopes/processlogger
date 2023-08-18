@@ -1,6 +1,6 @@
 package com.semanticweb.processlogger.applications.execution;
 
-import com.semanticweb.processlogger.applications.execution.resources.TaskExecution;
+import com.semanticweb.processlogger.applications.execution.resources.SubProcessExecution;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.repositories.TripleRepository;
 import com.semanticweb.processlogger.repositories.resources.Triple;
@@ -17,8 +17,8 @@ import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class TaskExecutionApplication {
-    private static final Logger logger = getLogger(TaskExecutionApplication.class);
+public class SubProcessExecutionApplication {
+    private static final Logger logger = getLogger(SubProcessExecutionApplication.class);
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
 
@@ -26,50 +26,56 @@ public class TaskExecutionApplication {
     private TripleRepository repository;
 
     public ResourceCreationResponse save(
-            TaskExecution taskExecution,
+            SubProcessExecution subProcessExecution,
             String processId,
             String processExecutionId,
-            String taskId
+            String subProcessId
     ) throws URISyntaxException {
-        logger.info("Calling repository to save a task execution");
+        logger.info("Calling repository to save a subprocess execution");
 
-        List<Triple> taskExecutionToTriples = buildTriples(taskExecution, processId, processExecutionId, taskId);
+        List<Triple> subProcessExecutionToTriples = buildTriples(subProcessExecution, processId, processExecutionId, subProcessId);
 
-        repository.save(taskExecutionToTriples);
+        repository.save(subProcessExecutionToTriples);
 
-        return buildResourceCreationResponse(taskExecutionToTriples);
+        return buildResourceCreationResponse(subProcessExecutionToTriples);
     }
 
     // TODO: verificar se esta certo como adicionar o time
     private List<Triple> buildTriples(
-            TaskExecution taskExecution,
+            SubProcessExecution subProcessExecution,
             String processId,
             String processExecutionId,
-            String taskId
+            String subProcessId
     ) {
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId
                 + "/executions/" + processExecutionId
-                + "/tasks/" + taskId + "/executions/" + getUlid();
+                + "/subprocesses/" + subProcessId + "/executions/" + getUlid();
 
         List<Triple> triples = asList(
-                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#TaskExecution"),
-                buildTriple(resourceUri, RDF_TYPE_URI, taskExecution.getType()),
-                buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, taskExecution.getName()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#executor", taskExecution.getExecutor()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#activityStatus", taskExecution.getStatus()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", taskExecution.getStart().toString()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", taskExecution.getEnd().toString())
+                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#SubProcessExecution"),
+                buildTriple(resourceUri, RDF_TYPE_URI, subProcessExecution.getType()),
+                buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, subProcessExecution.getName()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#executor", subProcessExecution.getExecutor()),
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#activityStatus", subProcessExecution.getStatus()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", subProcessExecution.getStart().toString()),
+                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", subProcessExecution.getEnd().toString())
         );
 
         triples.addAll(
-                taskExecution.getInputArguments().stream().map(argument ->
+                subProcessExecution.getInputArguments().stream().map(argument ->
                         buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#inputArgument", argument)
                 ).collect(toList())
         );
 
         triples.addAll(
-                taskExecution.getOutputArguments().stream().map(argument ->
+                subProcessExecution.getOutputArguments().stream().map(argument ->
                         buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#outputArgument", argument)
+                ).collect(toList())
+        );
+
+        triples.addAll(
+                subProcessExecution.getFlows().stream().map(flow ->
+                        buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#flow", flow)
                 ).collect(toList())
         );
 

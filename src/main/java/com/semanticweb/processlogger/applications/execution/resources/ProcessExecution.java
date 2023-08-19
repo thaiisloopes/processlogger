@@ -2,6 +2,7 @@ package com.semanticweb.processlogger.applications.execution.resources;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class ProcessExecution {
     private String name;
@@ -11,7 +12,7 @@ public class ProcessExecution {
     private List<String> inputArguments;
     private List<String> outputArguments;
     private LocalDateTime start;
-    private LocalDateTime end;
+    private Optional<LocalDateTime> end;
     private List<String> flows;
 
     public String getName() {
@@ -42,11 +43,7 @@ public class ProcessExecution {
         return start;
     }
 
-    public LocalDateTime getEnd() {
+    public Optional<LocalDateTime> getEnd() {
         return end;
-    }
-
-    public List<String> getFlows() {
-        return flows;
     }
 }

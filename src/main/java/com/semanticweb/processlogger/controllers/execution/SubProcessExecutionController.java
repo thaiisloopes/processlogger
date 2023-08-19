@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/processes/{processId}/executions/{processExecutionId}/subProcesses/{subProcessId}/executions")
+@RequestMapping("/processes/{processId}/executions/{processExecutionId}/subprocesses/{subprocessId}/executions")
 public class SubProcessExecutionController {
     private static final Logger logger = getLogger(SubProcessExecutionController.class);
 
@@ -25,14 +25,14 @@ public class SubProcessExecutionController {
     @PostMapping
     public ResponseEntity save(
             @RequestBody SubProcessExecution subProcessExecution,
-            @RequestParam String processId,
-            @RequestParam String processExecutionId,
-            @RequestParam String subProcessId
+            @PathVariable String processId,
+            @PathVariable String processExecutionId,
+            @PathVariable String subprocessId
     ) throws URISyntaxException {
         logger.info("Saving subProcessExecution");
 
         ResourceCreationResponse response = subProcessExecutionApplication.save(
-                subProcessExecution, processId, processExecutionId, subProcessId
+                subProcessExecution, processId, processExecutionId, subprocessId
         );
 
         return status(CREATED).body(response);

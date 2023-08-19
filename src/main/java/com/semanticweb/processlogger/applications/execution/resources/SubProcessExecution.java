@@ -2,6 +2,7 @@ package com.semanticweb.processlogger.applications.execution.resources;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class SubProcessExecution {
     private String name;
@@ -11,8 +12,7 @@ public class SubProcessExecution {
     private List<String> inputArguments;
     private List<String> outputArguments;
     private LocalDateTime start;
-    private LocalDateTime end;
-    private List<String> flows;
+    private Optional<LocalDateTime> end;
 
     public String getName() {
         return name;
@@ -42,11 +42,7 @@ public class SubProcessExecution {
         return start;
     }
 
-    public LocalDateTime getEnd() {
+    public Optional<LocalDateTime> getEnd() {
         return end;
-    }
-
-    public List<String> getFlows() {
-        return flows;
     }
 }

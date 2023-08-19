@@ -27,7 +27,7 @@ public class ProcessExecutionController {
     @PostMapping
     public ResponseEntity save(
             @RequestBody ProcessExecution processExecution,
-            @RequestParam String processId
+            @PathVariable String processId
     ) throws URISyntaxException {
         logger.info("Saving processExecution");
 

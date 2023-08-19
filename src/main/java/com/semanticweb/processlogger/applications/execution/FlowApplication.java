@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.valueOf;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -38,14 +39,16 @@ public class FlowApplication {
     private List<Triple> buildTriples(Flow flow) {
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/flows/" + UlidCreator.getUlid();
 
-        List<Triple> triples = new ArrayList<>();
-
-        triples.addAll(asList(
+        List<Triple> triples = new ArrayList<>(asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Flow"),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#flowStatus", flow.getFlowStatus().toString()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#from", flow.getFrom()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#to", flow.getTo())
+                buildTriple(flow.getBelongsTo(), "http://purl.org/saeg/ontologies/bpeo#flow", resourceUri)
         ));
+
+        if(flow.getFrom().isPresent())
+            triples.add(buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#from", valueOf(flow.getFrom())));
+        if(flow.getTo().isPresent())
+            triples.add(buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#to", valueOf(flow.getTo())));
 
         triples.addAll(
                 flow.getSteps().stream().map(step ->

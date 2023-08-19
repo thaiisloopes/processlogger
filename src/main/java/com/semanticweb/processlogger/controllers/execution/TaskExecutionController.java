@@ -25,9 +25,9 @@ public class TaskExecutionController {
     @PostMapping
     public ResponseEntity save(
             @RequestBody TaskExecution taskExecution,
-            @RequestParam String processId,
-            @RequestParam String processExecutionId,
-            @RequestParam String taskId
+            @PathVariable String processId,
+            @PathVariable String processExecutionId,
+            @PathVariable String taskId
     ) throws URISyntaxException {
         logger.info("Saving taskExecution");
 

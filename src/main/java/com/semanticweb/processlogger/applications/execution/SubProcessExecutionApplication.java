@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.github.f4b6a3.ulid.UlidCreator.getUlid;
 import static java.util.Arrays.asList;
@@ -19,8 +22,14 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Service
 public class SubProcessExecutionApplication {
     private static final Logger logger = getLogger(SubProcessExecutionApplication.class);
-    private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+    private static final String RDF_TYPE_CLASS_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+    private static final String TIME_INTERVAL_CLASS_URI = "http://www.w3.org/2006/time#Interval";
+    private static final String TIME_INSTANT_CLASS_URI = "http://www.w3.org/2006/time#Instant";
     private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
+    private static final String TIME_AT_PROPERTY_URI = "http://www.w3.org/2006/time#at";
+    private static final String TIME_START_PROPERTY_URI = "http://www.w3.org/2006/time#start";
+    private static final String TIME_END_PROPERTY_URI = "http://www.w3.org/2006/time#end";
+    private static final String EVENT_TIME_PROPERTY_URI = "http://purl.org/NET/c4dm/event.owl#time";
 
     @Autowired
     private TripleRepository repository;
@@ -40,7 +49,6 @@ public class SubProcessExecutionApplication {
         return buildResourceCreationResponse(subProcessExecutionToTriples);
     }
 
-    // TODO: verificar se esta certo como adicionar o time
     private List<Triple> buildTriples(
             SubProcessExecution subProcessExecution,
             String processId,
@@ -51,15 +59,15 @@ public class SubProcessExecutionApplication {
                 + "/executions/" + processExecutionId
                 + "/subprocesses/" + subProcessId + "/executions/" + getUlid();
 
-        List<Triple> triples = asList(
-                buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#SubProcessExecution"),
-                buildTriple(resourceUri, RDF_TYPE_URI, subProcessExecution.getType()),
+        List<Triple> triples = new ArrayList<>();
+
+        triples.addAll(asList(
+                buildTriple(resourceUri, RDF_TYPE_CLASS_URI, "http://purl.org/saeg/ontologies/bpeo#SubProcessExecution"),
+                buildTriple(resourceUri, RDF_TYPE_CLASS_URI, subProcessExecution.getType()),
                 buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, subProcessExecution.getName()),
                 buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#executor", subProcessExecution.getExecutor()),
-                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#activityStatus", subProcessExecution.getStatus()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", subProcessExecution.getStart().toString()),
-                buildTriple(resourceUri, "http://purl.org/NET/c4dm/event.owl#time", subProcessExecution.getEnd().toString())
-        );
+                buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#activityStatus", subProcessExecution.getStatus())
+        ));
 
         triples.addAll(
                 subProcessExecution.getInputArguments().stream().map(argument ->
@@ -73,10 +81,36 @@ public class SubProcessExecutionApplication {
                 ).collect(toList())
         );
 
+        List<Triple> timeTriples = buildTimeTriples(subProcessExecution.getStart(), subProcessExecution.getEnd(), resourceUri);
+        triples.addAll(timeTriples);
+
+        return triples;
+    }
+
+    private List<Triple> buildTimeTriples(LocalDateTime start, Optional<LocalDateTime> end, String resourceUri) {
+        String randomTimeUri = "http://purl.org/saeg/ontologies/bpeo/times/" + getUlid();
+        String timeClass = TIME_INTERVAL_CLASS_URI;
+
+        if(end.isEmpty() || start.isEqual(end.get())) timeClass = TIME_INSTANT_CLASS_URI;
+
+        List<Triple> triples = new ArrayList<>();
+
+        if(timeClass.equals(TIME_INSTANT_CLASS_URI)) {
+            triples.add(
+                    buildTriple(randomTimeUri, TIME_AT_PROPERTY_URI, start.toString())
+            );
+        } else {
+            triples.addAll(asList(
+                    buildTriple(randomTimeUri, TIME_START_PROPERTY_URI, start.toString()),
+                    buildTriple(randomTimeUri, TIME_END_PROPERTY_URI, end.toString())
+            ));
+        }
+
         triples.addAll(
-                subProcessExecution.getFlows().stream().map(flow ->
-                        buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#flow", flow)
-                ).collect(toList())
+                asList(
+                        buildTriple(resourceUri, EVENT_TIME_PROPERTY_URI, randomTimeUri),
+                        buildTriple(randomTimeUri, RDF_TYPE_CLASS_URI, timeClass)
+                )
         );
 
         return triples;

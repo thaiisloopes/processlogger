@@ -99,12 +99,11 @@ public class TaskExecutionApplication {
             triples.add(
                     buildTriple(randomTimeUri, TIME_AT_PROPERTY_URI, start.toString())
             );
-        } else {
-            triples.addAll(asList(
-                    buildTriple(randomTimeUri, TIME_START_PROPERTY_URI, start.toString()),
-                    buildTriple(randomTimeUri, TIME_END_PROPERTY_URI, end.toString())
-            ));
         }
+        triples.addAll(asList(
+                buildTriple(randomTimeUri, TIME_START_PROPERTY_URI, start.toString()),
+                buildTriple(randomTimeUri, TIME_END_PROPERTY_URI, end.toString())
+        ));
 
         triples.addAll(
                 asList(

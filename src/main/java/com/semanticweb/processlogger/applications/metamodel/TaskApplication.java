@@ -30,6 +30,8 @@ public class TaskApplication {
     private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
     private static final String BBO_HAS_IO_SPECIFICATION_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_ioSpecification";
     private static final String BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#is_responsibleFor";
+    private static final String BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_flowElements";
+
 
     @Autowired
     private TripleRepository repository;
@@ -77,7 +79,8 @@ public class TaskApplication {
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_ELEMENT_CLASS_URI),
                 buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, task.getName()),
                 buildTriple(resourceUri, BBO_HAS_IO_SPECIFICATION_PROPERTY_URI, task.getInputOutputSpecification()),
-                buildTriple(task.getRole(), BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI, resourceUri)
+                buildTriple(task.getRole(), BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI, resourceUri),
+                buildTriple("http://purl.org/saeg/ontologies/bpeo/processes/" + processId, BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI, resourceUri)
         );
     }
 

@@ -29,7 +29,6 @@ public class ProcessApplication {
     private static final String RDF_TYPE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     private static final String BBO_PROCESS_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process";
     private static final String BBO_FLOW_ELEMENTS_CONTAINER_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#FlowElementsContainer";
-    private static final String BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_flowElements";
     private static final String BBO_NAME_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#name";
 
     @Autowired
@@ -79,12 +78,6 @@ public class ProcessApplication {
                         buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_ELEMENTS_CONTAINER_CLASS_URI),
                         buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, process.getName())
                 )
-        );
-
-        triples.addAll(
-                process.getFlowElements().stream().map(flowElement ->
-                    buildTriple(resourceUri, BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI, flowElement)
-                ).collect(toList())
         );
 
         return triples;

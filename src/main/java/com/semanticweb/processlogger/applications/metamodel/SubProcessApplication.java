@@ -58,7 +58,8 @@ public class SubProcessApplication {
                     buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_ELEMENTS_CONTAINER_CLASS_URI),
                     buildTriple(resourceUri, BBO_NAME_PROPERTY_URI, subProcess.getName()),
                     buildTriple(resourceUri, BBO_HAS_IO_SPECIFICATION_PROPERTY_URI, subProcess.getInputOutputSpecification()),
-                    buildTriple(subProcess.getRole(), BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI, resourceUri)
+                    buildTriple(subProcess.getRole(), BBO_IS_RESPONSIBLE_FOR_PROPERTY_URI, resourceUri),
+                    buildTriple("http://purl.org/saeg/ontologies/bpeo/processes/" + processId, BBO_HAS_FLOW_ELEMENTS_PROPERTY_URI, resourceUri)
                 )
         );
 

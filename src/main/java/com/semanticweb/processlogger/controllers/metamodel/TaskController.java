@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/processes/{processId}/tasks")
 public class TaskController {
     private static final Logger logger = getLogger(TaskController.class);
 
@@ -37,10 +37,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody Task task) throws URISyntaxException {
+    public ResponseEntity save(
+            @RequestBody Task task ,
+            @PathVariable String processId
+    ) throws URISyntaxException {
         logger.info("Saving task");
 
-        ResourceCreationResponse response = taskApplication.save(task);
+        ResourceCreationResponse response = taskApplication.save(task, processId);
 
         return status(CREATED).body(response);
     }

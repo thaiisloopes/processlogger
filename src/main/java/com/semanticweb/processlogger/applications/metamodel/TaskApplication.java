@@ -53,10 +53,10 @@ public class TaskApplication {
         return model;
     }
 
-    public ResourceCreationResponse save(Task task) throws URISyntaxException {
+    public ResourceCreationResponse save(Task task, String processId) throws URISyntaxException {
         logger.info("Calling repository to save a task");
 
-        List<Triple> taskToTriples = buildTaskTriples(task);
+        List<Triple> taskToTriples = buildTaskTriples(task, processId);
 
         repository.save(taskToTriples);
 
@@ -67,8 +67,8 @@ public class TaskApplication {
         return new ResourceCreationResponse(triples.get(0).getResource());
     }
 
-    private List<Triple> buildTaskTriples(Task task) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/tasks/" + UlidCreator.getUlid();
+    private List<Triple> buildTaskTriples(Task task, String processId) {
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/tasks/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_TASK_CLASS_URI),

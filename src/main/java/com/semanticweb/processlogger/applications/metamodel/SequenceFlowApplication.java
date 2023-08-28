@@ -22,7 +22,7 @@ public class SequenceFlowApplication {
     private static final String BBO_SEQUENCE_FLOW_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#SequenceFlow";
     private static final String BBO_FLOW_ELEMENT_CLASS_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#FlowElement";
     private static final String BBO_HAS_SOURCE_REF_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_sourceRef";
-    private static final String BBO_HAS_TAERGET_REF_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_targetRef";
+    private static final String BBO_HAS_TARGET_REF_PROPERTY_URI = "https://www.irit.fr/recherches/MELODI/ontologies/BBO#has_targetRef";
 
     @Autowired
     private TripleRepository repository;
@@ -44,7 +44,7 @@ public class SequenceFlowApplication {
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_SEQUENCE_FLOW_CLASS_URI),
                 buildTriple(resourceUri, RDF_TYPE_URI, BBO_FLOW_ELEMENT_CLASS_URI),
                 buildTriple(resourceUri, BBO_HAS_SOURCE_REF_PROPERTY_URI,sequenceFlow.getSourceRef()),
-                buildTriple(resourceUri, BBO_HAS_TAERGET_REF_PROPERTY_URI,sequenceFlow.getTargetRef())
+                buildTriple(resourceUri, BBO_HAS_TARGET_REF_PROPERTY_URI,sequenceFlow.getTargetRef())
         );
     }
 

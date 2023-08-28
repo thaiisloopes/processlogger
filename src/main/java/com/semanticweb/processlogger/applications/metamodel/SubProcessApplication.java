@@ -45,7 +45,7 @@ public class SubProcessApplication {
         return buildResourceCreationResponse(subProcessToTriples);
     }
     private List<Triple> buildTriples(SubProcess subProcess, String processId) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/subprocesses" + UlidCreator.getUlid();
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId + "/subprocesses/" + UlidCreator.getUlid();
 
         List<Triple> triples = new ArrayList<>();
 

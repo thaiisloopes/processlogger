@@ -1,0 +1,617 @@
+{
+  "info": {
+    "_postman_id": "3f547bd4-0784-4630-9c82-99c6b8af2345",
+    "name": "processlogger",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28896819"
+  },
+  "item": [
+    {
+      "name": "metamodel",
+      "item": [
+        {
+          "name": "processes",
+          "item": [
+            {
+              "name": "[local] create process",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Submissão de artigo\",\n    \"flowElements\": [\n        \"http://purl.org/bpeo/activities#activity1\"\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/processes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "[local] processes",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/processes",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "roles",
+          "item": [
+            {
+              "name": "[local] create roles",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Revisor\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/roles",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "roles"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "resources",
+          "item": [
+            {
+              "name": "[local] create resource",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Artigo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/resources",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "resources"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "inputoutputspecifications",
+          "item": [
+            {
+              "name": "[local] create inputoutputspecifications",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"resourceInput\": \"http://purl.org/saeg/ontologies/bpeo/resources/ADZ7V8Q16ADZNMT8NNEX5FX5F2\",\n    \"resourceOutput\": \"http://purl.org/saeg/ontologies/bpeo/resources/ADZ7V8Q16ADZNMT8NNEX5FX5F2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/inputoutputspecifications",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "inputoutputspecifications"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "subprocesses",
+          "item": [
+            {
+              "name": "[local] create subprocess",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Submissão de artigo\",\n    \"inputOutputSpecification\": \"\",\n    \"flowElements\": [\n        \"http://purl.org/bpeo/activities#activity1\"\n    ],\n    \"role\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/processes/{processId}/subprocesses",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes",
+                    "{processId}",
+                    "subprocesses"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "tasks",
+          "item": [
+            {
+              "name": "[local] create tasks",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Submissão de artigo\",\n    \"inputOutputSpecification\": \"\",\n    \"role\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/processes/{processId}/tasks",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes",
+                    "{processId}",
+                    "tasks"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "sequenceflows",
+          "item": [
+            {
+              "name": "[local] create sequenceflows",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"sourceRef\": \"\",\n    \"targetRef\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/sequenceflows",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "sequenceflows"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "expressions",
+          "item": [
+            {
+              "name": "[local] create expressions",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/expressions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "expressions"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "executions",
+      "item": [
+        {
+          "name": "arguments",
+          "item": [
+            {
+              "name": "[local] create arguments",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"BPEO: Ontologia OWL para registro de execução (log) de processos de negócio\",\n    \"value\": \"BPEO: Ontologia OWL para registro de execução (log) de processos de negócio\",\n    \"type\": \"http://www.example.com#resource1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/arguments",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "arguments"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "flows",
+          "item": [
+            {
+              "name": "[local] create flows",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"flowStatus\": \"INTERRUPTED\",\n    \"from\": \"http://purl.org/saeg/ontologies/bpeo/flows/01H865S0R7AV9JGVQMA2NNPN77\",\n    \"to\": \"http://purl.org/saeg/ontologies/bpeo/flows/01H865S0R7AV9JGVQMA2NNPN77\",\n    \"steps\": [\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task5/executions/01H8656M86H1Q87KNC0JE3920B\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task5/executions/01H8657T7BPMJN0AYS1178Y9ES\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task5/executions/01H8658X9SKPJ6QZFPVY43VJQW\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions/01H865E2ZH7G6PKAYBGYFQR6ZV\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions/01H865GMJQ62CJ2GK36R6WWE0N\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions/01H865FBQ9NC8J4GNYQTN8M39X\"\n    ],\n    \"belongsTo\": \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/subprocesses/subprocess1/executions/01H865P2543XTW5VAFGR1MAQXM\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/flows",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "flows"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "performers",
+          "item": [
+            {
+              "name": "[local] create performers",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Bianca Monteiro\",\n    \"role\": \"http://www.example.com#role1\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/performers",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "performers"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "taskexecutions",
+          "item": [
+            {
+              "name": "[local] create taskExecutions",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Submeter avaliação do artigo Event Ontology\",\n    \"type\": \"http://www.example.com#task6\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H864DV19YC9BJF0PGDSH7YBV\",\n    \"status\": \"TERMINATED_BY_EXCEPTION\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"start\": \"2023-08-17T18:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes",
+                    "process1",
+                    "executions",
+                    "01H864H64070VJV7MZYPRQR2GG",
+                    "tasks",
+                    "task6",
+                    "executions"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "subprocessexecutions",
+          "item": [
+            {
+              "name": "[local] create subprocessExecutions",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Revisar artigo Event Ontology\",\n    \"type\": \"http://www.example.com#subprocess1\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H864BQKZR6PEK8H4CQTXZPZM\",\n    \"status\": \"TERMINATED_BY_EXCEPTION\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"start\": \"2023-08-11T11:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/subprocesses/subprocess1/executions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes",
+                    "process1",
+                    "executions",
+                    "01H864H64070VJV7MZYPRQR2GG",
+                    "subprocesses",
+                    "subprocess1",
+                    "executions"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "processexecution",
+          "item": [
+            {
+              "name": "[local] create processExecutions",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Submissao do artigo Event Ontology\",\n    \"type\": \"http://www.example.com#process1\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H864BQKZR6PEK8H4CQTXZPZM\",\n    \"status\": \"TERMINATED_BY_EXCEPTION\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"start\": \"2023-08-10T18:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/processes/process1/executions",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "processes",
+                    "process1",
+                    "executions"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -38,7 +38,7 @@ public class PerformerApplication {
     }
 
     private List<Triple> buildTriples(Performer performer) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/performers/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/conference/performers/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Performer"),

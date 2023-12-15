@@ -37,7 +37,7 @@ public class FlowApplication {
     }
 
     private List<Triple> buildTriples(Flow flow) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/flows/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/conference/flows/" + UlidCreator.getUlid();
 
         List<Triple> triples = new ArrayList<>(asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Flow"),
@@ -45,16 +45,24 @@ public class FlowApplication {
                 buildTriple(flow.getBelongsTo(), "http://purl.org/saeg/ontologies/bpeo#flow", resourceUri)
         ));
 
-        if(flow.getFrom().isPresent())
-            triples.add(buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#from", valueOf(flow.getFrom())));
-        if(flow.getTo().isPresent())
-            triples.add(buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#to", valueOf(flow.getTo())));
+        if(flow.getInitialFlow()) {
+            triples.add(
+                    buildTriple(flow.getBelongsTo(), "http://purl.org/saeg/ontologies/bpeo#initialFlow", resourceUri)
+            );
+        }
 
-        triples.addAll(
-                flow.getSteps().stream().map(step ->
-                        buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#step", step)
-                ).collect(toList())
-        );
+        if(flow.getFrom() != null)
+            triples.add(buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#source", valueOf(flow.getFrom())));
+        if(flow.getTo() != null)
+            triples.add(buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#target", valueOf(flow.getTo())));
+
+        if(flow.getSteps() != null) {
+            triples.addAll(
+                    flow.getSteps().stream().map(step ->
+                            buildTriple(resourceUri, "http://purl.org/saeg/ontologies/bpeo#step", step)
+                    ).collect(toList())
+            );
+        }
 
         return triples;
     }

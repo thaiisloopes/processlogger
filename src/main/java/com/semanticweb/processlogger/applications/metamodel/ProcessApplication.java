@@ -10,6 +10,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.eclipse.collections.api.list.MutableList;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.apache.jena.rdf.model.ModelFactory.createDefaultModel;
 
 @Service
 public class ProcessApplication {
@@ -34,14 +36,28 @@ public class ProcessApplication {
     @Autowired
     private TripleRepository repository;
 
+    public Model getProcessById(String processId) {
+        logger.info("Calling repository to get process by id");
+
+        List<Triple> triples = repository.getProcessById(processId);
+
+        Model model = ModelFactory.createDefaultModel();
+        triples.forEach(
+                triple -> {
+                    Resource resource = model.createResource(triple.getResource());
+                    Property property = model.createProperty(triple.getProperty());
+                    model.add(resource, property, triple.getValue());
+                }
+        );
+
+        return model;
+    }
+
     public Model getProcess() {
         logger.info("Calling repository to get all processes");
 
-        //TODO: precisa adaptar essa query pra pegar todas as URIs dos processos
-        String queryString = "select ?s ?p ?o where { ?s ?p ?o. }";
-
         Model model = ModelFactory.createDefaultModel();
-        List<Triple> triples = repository.get(queryString);
+        List<Triple> triples = repository.getProcesses();
         triples.forEach(
                 triple -> {
                     Resource resource = model.createResource(triple.getResource());

@@ -35,7 +35,7 @@ public class ArgumentApplication {
     }
 
     private List<Triple> buildTriples(Argument argument) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/arguments/" + UlidCreator.getUlid();
+        String resourceUri = "http://www.example.com/conference/arguments/" + UlidCreator.getUlid();
 
         return asList(
                 buildTriple(resourceUri, RDF_TYPE_URI, "http://purl.org/saeg/ontologies/bpeo#Argument"),

@@ -24,6 +24,21 @@ public class ProcessController {
     @Autowired
     private ProcessApplication processApplication;
 
+    @GetMapping("/{processId}")
+    public String get(
+            @RequestHeader("Accept") String accept,
+            @PathVariable String processId
+    ) {
+        String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
+
+        logger.info("Getting processes");
+
+        OutputStream stream = new ByteArrayOutputStream() ;
+        processApplication.getProcessById(processId).write(stream, format);
+
+        return stream.toString();
+    }
+
     @GetMapping
     public String getAll(@RequestHeader("Accept") String accept) {
         String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";

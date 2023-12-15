@@ -55,7 +55,7 @@ public class TaskExecutionApplication {
             String processExecutionId,
             String taskId
     ) {
-        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId
+        String resourceUri = "http://www.example.com/conference/processes/" + processId
                 + "/executions/" + processExecutionId
                 + "/tasks/" + taskId + "/executions/" + getUlid();
 
@@ -87,11 +87,11 @@ public class TaskExecutionApplication {
         return triples;
     }
 
-    private List<Triple> buildTimeTriples(LocalDateTime start, Optional<LocalDateTime> end, String resourceUri) {
-        String randomTimeUri = "http://purl.org/saeg/ontologies/bpeo/times/" + getUlid();
+    private List<Triple> buildTimeTriples(LocalDateTime start, LocalDateTime end, String resourceUri) {
+        String randomTimeUri = "http://www.example.com/conference/times/" + getUlid();
         String timeClass = TIME_INTERVAL_CLASS_URI;
 
-        if(end.isEmpty() || start.isEqual(end.get())) timeClass = TIME_INSTANT_CLASS_URI;
+        if(end != null && start.isEqual(end)) timeClass = TIME_INSTANT_CLASS_URI;
 
         List<Triple> triples = new ArrayList<>();
 
@@ -100,10 +100,11 @@ public class TaskExecutionApplication {
                     buildTriple(randomTimeUri, TIME_AT_PROPERTY_URI, start.toString())
             );
         }
-        triples.addAll(asList(
-                buildTriple(randomTimeUri, TIME_START_PROPERTY_URI, start.toString()),
-                buildTriple(randomTimeUri, TIME_END_PROPERTY_URI, end.toString())
-        ));
+        triples.add(buildTriple(randomTimeUri, TIME_START_PROPERTY_URI, start.toString()));
+
+        if(end != null) {
+            triples.add(buildTriple(randomTimeUri, TIME_END_PROPERTY_URI, end.toString()));
+        }
 
         triples.addAll(
                 asList(

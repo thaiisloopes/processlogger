@@ -1,5 +1,7 @@
 package com.semanticweb.processlogger.applications.execution.resources;
 
+import javax.annotation.Nullable;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +14,8 @@ public class SubProcessExecution {
     private List<String> inputArguments;
     private List<String> outputArguments;
     private LocalDateTime start;
-    private Optional<LocalDateTime> end;
+    @Nullable
+    private LocalDateTime end;
 
     public String getName() {
         return name;
@@ -42,7 +45,8 @@ public class SubProcessExecution {
         return start;
     }
 
-    public Optional<LocalDateTime> getEnd() {
+    @Nullable
+    public LocalDateTime getEnd() {
         return end;
     }
 }

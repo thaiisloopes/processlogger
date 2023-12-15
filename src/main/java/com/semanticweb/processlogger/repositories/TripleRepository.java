@@ -39,6 +39,40 @@ public class TripleRepository {
         });
     }
 
+    public List<Triple> getProcessById(String processId) {
+        logger.info("Calling StarDog from SnarlTemplate to get process by id");
+        String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId;
+        String queryString = "SELECT ?p ?o WHERE { <" + resourceUri + "> ?p ?o. }";
+
+        return snarlTemplate.query(queryString, new RowMapper<Triple>() {
+            @Override
+            public Triple mapRow(BindingSet bindingSet) {
+                return new Triple(
+                        resourceUri,
+                        requireNonNull(bindingSet.get("p")).toString(),
+                        requireNonNull(bindingSet.get("o")).toString()
+                );
+            }
+        });
+    }
+
+    public List<Triple> getProcesses() {
+        logger.info("Calling StarDog from SnarlTemplate to get all processes");
+        String queryString = "SELECT ?s WHERE { ?s a <https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process> }";
+
+        return snarlTemplate.query(queryString, new RowMapper<Triple>() {
+            @Override
+
+            public Triple mapRow(BindingSet bindingSet) {
+                return new Triple(
+                        requireNonNull(bindingSet.get("s")).toString(),
+                        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                        "https://www.irit.fr/recherches/MELODI/ontologies/BBO#Process"
+                );
+            }
+        });
+    }
+
     public List<List<Triple>> getActivities(String queryString) {
         logger.info("Calling StarDog from SnarlTemplate to get activities");
 

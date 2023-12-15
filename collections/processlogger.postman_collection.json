@@ -26,7 +26,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Submissão de artigo\",\n    \"flowElements\": [\n        \"http://purl.org/bpeo/activities#activity1\"\n    ]\n}",
+                  "raw": "{\n    \"name\": \"Submissão de artigo\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -165,7 +165,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"resourceInput\": \"http://purl.org/saeg/ontologies/bpeo/resources/ADZ7V8Q16ADZNMT8NNEX5FX5F2\",\n    \"resourceOutput\": \"http://purl.org/saeg/ontologies/bpeo/resources/ADZ7V8Q16ADZNMT8NNEX5FX5F2\"\n}",
+                  "raw": "{\n    \"resourceInput\": \"http://purl.org/saeg/ontologies/bpeo/resources/01H8X41AZH8HAQF695JGGDQ2NB\",\n    \"resourceOutput\": \"http://purl.org/saeg/ontologies/bpeo/resources/01H8X41AZH8HAQF695JGGDQ2NB\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -173,14 +173,14 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/inputoutputspecifications",
+                  "raw": "http://localhost:8080/inputOutputSpecifications",
                   "protocol": "http",
                   "host": [
                     "localhost"
                   ],
                   "port": "8080",
                   "path": [
-                    "inputoutputspecifications"
+                    "inputOutputSpecifications"
                   ]
                 }
               },
@@ -205,7 +205,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Submissão de artigo\",\n    \"inputOutputSpecification\": \"\",\n    \"flowElements\": [\n        \"http://purl.org/bpeo/activities#activity1\"\n    ],\n    \"role\": \"\"\n}",
+                  "raw": "{\n    \"name\": \"Revisar artigo\",\n    \"inputOutputSpecification\": \"http://purl.org/saeg/ontologies/bpeo/inputOutputSpecifications/01H8X68A2RGBRNZQ02S7DTW4ZE\",\n    \"flowElements\": [\n        \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/tasks/01H8Z1XGGZTRB1YRPNEPTN7M1C\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/tasks/01H8Z250S6PK6JYCVRD6W3FREZ\"\n    ],\n    \"role\": \"http://purl.org/saeg/ontologies/bpeo/roles/01H8X4XY7HPYSEWT1P6V3Y2VEM\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -213,7 +213,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/processes/{processId}/subprocesses",
+                  "raw": "http://localhost:8080/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/subprocesses",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -221,7 +221,7 @@
                   "port": "8080",
                   "path": [
                     "processes",
-                    "{processId}",
+                    "01H8Z1KB8K7F54JF3E71AQ2R2D",
                     "subprocesses"
                   ]
                 }
@@ -247,7 +247,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Submissão de artigo\",\n    \"inputOutputSpecification\": \"\",\n    \"role\": \"\"\n}",
+                  "raw": "{\n    \"name\": \"Submeter versão final\",\n    \"inputOutputSpecification\": \"http://purl.org/saeg/ontologies/bpeo/inputOutputSpecifications/01H8X68A2RGBRNZQ02S7DTW4ZE\",\n    \"role\": \"http://purl.org/saeg/ontologies/bpeo/roles/01H8X51J01WQW4ZNHQ5AX8KCHH\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -255,7 +255,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/processes/{processId}/tasks",
+                  "raw": "http://localhost:8080/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/tasks",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -263,7 +263,7 @@
                   "port": "8080",
                   "path": [
                     "processes",
-                    "{processId}",
+                    "01H8Z1KB8K7F54JF3E71AQ2R2D",
                     "tasks"
                   ]
                 }
@@ -289,7 +289,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"sourceRef\": \"\",\n    \"targetRef\": \"\"\n}",
+                  "raw": "{\n    \"sourceRef\": \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/tasks/01H8Z1XGGZTRB1YRPNEPTN7M1C\",\n    \"targetRef\": \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/tasks/01H8Z250S6PK6JYCVRD6W3FREZ\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -374,7 +374,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"BPEO: Ontologia OWL para registro de execução (log) de processos de negócio\",\n    \"value\": \"BPEO: Ontologia OWL para registro de execução (log) de processos de negócio\",\n    \"type\": \"http://www.example.com#resource1\"\n}",
+                  "raw": "{\n    \"name\": \"BPEO: Ontologia OWL para registro de execução (log) de processos de negócio\",\n    \"value\": \"BPEO: Ontologia OWL para registro de execução (log) de processos de negócio\",\n    \"type\": \"http://purl.org/saeg/ontologies/bpeo/resources/01H8X41AZH8HAQF695JGGDQ2NB\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -414,7 +414,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"flowStatus\": \"INTERRUPTED\",\n    \"from\": \"http://purl.org/saeg/ontologies/bpeo/flows/01H865S0R7AV9JGVQMA2NNPN77\",\n    \"to\": \"http://purl.org/saeg/ontologies/bpeo/flows/01H865S0R7AV9JGVQMA2NNPN77\",\n    \"steps\": [\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task5/executions/01H8656M86H1Q87KNC0JE3920B\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task5/executions/01H8657T7BPMJN0AYS1178Y9ES\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task5/executions/01H8658X9SKPJ6QZFPVY43VJQW\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions/01H865E2ZH7G6PKAYBGYFQR6ZV\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions/01H865GMJQ62CJ2GK36R6WWE0N\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions/01H865FBQ9NC8J4GNYQTN8M39X\"\n    ],\n    \"belongsTo\": \"http://purl.org/saeg/ontologies/bpeo/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/subprocesses/subprocess1/executions/01H865P2543XTW5VAFGR1MAQXM\"\n}",
+                  "raw": "{\n    \"flowStatus\": \"FINISHED\",\n    \"from\": \"http://purl.org/saeg/ontologies/bpeo/flows/01H8ZE565EXQN2FYNZPFVW1WES\",\n    \"to\": \"http://purl.org/saeg/ontologies/bpeo/flows/01H8ZE565EXQN2FYNZPFVW1WES\",\n    \"steps\": [\n        \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/executions/01H8Z8ZHXBSDXVVF1YNPPZWN5F/tasks/01H8Z1XGGZTRB1YRPNEPTN7M1C/executions/01H8ZBDK5RWJTND3NZW2WR9DBA\",\n        \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/executions/01H8Z8ZHXBSDXVVF1YNPPZWN5F/tasks/01H8Z250S6PK6JYCVRD6W3FREZ/executions/01H8ZCBVNYPTCSAA5Q1ST9QFKG\"\n    ],\n    \"belongsTo\": \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/executions/01H8Z8ZHXBSDXVVF1YNPPZWN5F/subprocesses/01H8Z38QJ742N2Q246YXQ477YT/executions/01H8ZDG5ZW4E369G9A07P5MJXP\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -454,7 +454,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Bianca Monteiro\",\n    \"role\": \"http://www.example.com#role1\"\n}",
+                  "raw": "{\n    \"name\": \"Lucas Andrade\",\n    \"role\": \"http://purl.org/saeg/ontologies/bpeo/roles/01H8X4XY7HPYSEWT1P6V3Y2VEM\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -494,7 +494,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Submeter avaliação do artigo Event Ontology\",\n    \"type\": \"http://www.example.com#task6\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H864DV19YC9BJF0PGDSH7YBV\",\n    \"status\": \"TERMINATED_BY_EXCEPTION\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"start\": \"2023-08-17T18:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
+                  "raw": "{\n    \"name\": \"Submeter versão final do artigo BPEO\",\n    \"type\": \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/tasks/01H8Z4QD8J7GF2RR7WA8NDF9RH\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H8Z7G364ZNDXPAZTN9M3KN0B\",\n    \"status\": \"TERMINATED\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H85CX7BP32X2M1616DM0ZSXW\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H85CX7BP32X2M1616DM0ZSXW\"],\n    \"start\": \"2023-08-17T18:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -502,7 +502,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/tasks/task6/executions",
+                  "raw": "http://localhost:8080/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/executions/01H8Z8ZHXBSDXVVF1YNPPZWN5F/tasks/01H8Z4QD8J7GF2RR7WA8NDF9RH/executions",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -510,11 +510,11 @@
                   "port": "8080",
                   "path": [
                     "processes",
-                    "process1",
+                    "01H8Z1KB8K7F54JF3E71AQ2R2D",
                     "executions",
-                    "01H864H64070VJV7MZYPRQR2GG",
+                    "01H8Z8ZHXBSDXVVF1YNPPZWN5F",
                     "tasks",
-                    "task6",
+                    "01H8Z4QD8J7GF2RR7WA8NDF9RH",
                     "executions"
                   ]
                 }
@@ -540,7 +540,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Revisar artigo Event Ontology\",\n    \"type\": \"http://www.example.com#subprocess1\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H864BQKZR6PEK8H4CQTXZPZM\",\n    \"status\": \"TERMINATED_BY_EXCEPTION\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"start\": \"2023-08-11T11:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
+                  "raw": "{\n    \"name\": \"Revisar artigo BBO\",\n    \"type\": \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/subprocesses/01H8Z38QJ742N2Q246YXQ477YT\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H8Z7G364ZNDXPAZTN9M3KN0B\",\n    \"status\": \"TERMINATED\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H85CX7BP32X2M1616DM0ZSXW\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H85CX7BP32X2M1616DM0ZSXW\"],\n    \"start\": \"2023-08-11T11:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -548,7 +548,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/processes/process1/executions/01H864H64070VJV7MZYPRQR2GG/subprocesses/subprocess1/executions",
+                  "raw": "http://localhost:8080/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/executions/01H8Z8ZHXBSDXVVF1YNPPZWN5F/subprocesses/01H8Z38QJ742N2Q246YXQ477YT/executions",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -556,11 +556,11 @@
                   "port": "8080",
                   "path": [
                     "processes",
-                    "process1",
+                    "01H8Z1KB8K7F54JF3E71AQ2R2D",
                     "executions",
-                    "01H864H64070VJV7MZYPRQR2GG",
+                    "01H8Z8ZHXBSDXVVF1YNPPZWN5F",
                     "subprocesses",
-                    "subprocess1",
+                    "01H8Z38QJ742N2Q246YXQ477YT",
                     "executions"
                   ]
                 }
@@ -586,7 +586,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"name\": \"Submissao do artigo Event Ontology\",\n    \"type\": \"http://www.example.com#process1\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H864BQKZR6PEK8H4CQTXZPZM\",\n    \"status\": \"TERMINATED_BY_EXCEPTION\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H8649RY5E0ZAWKM7A8HVBXPS\"],\n    \"start\": \"2023-08-10T18:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
+                  "raw": "{\n    \"name\": \"Submissao do artigo BPEO\",\n    \"type\": \"http://purl.org/saeg/ontologies/bpeo/processes/01H8Z1KB8K7F54JF3E71AQ2R2D\",\n    \"executor\": \"http://purl.org/saeg/ontologies/bpeo/performers/01H8Z7G364ZNDXPAZTN9M3KN0B\",\n    \"status\": \"TERMINATED\",\n    \"inputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H85CX7BP32X2M1616DM0ZSXW\"],\n    \"outputArguments\": [\"http://purl.org/saeg/ontologies/bpeo/arguments/01H85CX7BP32X2M1616DM0ZSXW\"],\n    \"start\": \"2023-08-10T18:00:00\",\n    \"end\": \"2023-08-17T18:00:00\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -594,7 +594,7 @@
                   }
                 },
                 "url": {
-                  "raw": "http://localhost:8080/processes/process1/executions",
+                  "raw": "http://localhost:8080/processes/01H8Z1KB8K7F54JF3E71AQ2R2D/executions",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -602,7 +602,7 @@
                   "port": "8080",
                   "path": [
                     "processes",
-                    "process1",
+                    "01H8Z1KB8K7F54JF3E71AQ2R2D",
                     "executions"
                   ]
                 }

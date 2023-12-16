@@ -39,6 +39,40 @@ public class TripleRepository {
         });
     }
 
+    public List<Triple> getArgumentById(String argumentId) {
+        logger.info("Calling StarDog from SnarlTemplate to get argument by id");
+        String resourceUri = "http://www.example.com/conference/arguments/" + argumentId;
+        String queryString = "SELECT ?p ?o WHERE { <" + resourceUri + "> ?p ?o. }";
+
+        return snarlTemplate.query(queryString, new RowMapper<Triple>() {
+            @Override
+            public Triple mapRow(BindingSet bindingSet) {
+                return new Triple(
+                        resourceUri,
+                        requireNonNull(bindingSet.get("p")).toString(),
+                        requireNonNull(bindingSet.get("o")).toString()
+                );
+            }
+        });
+    }
+
+    public List<Triple> getProcessExecutionById(String processId, String processExecutionId) {
+        logger.info("Calling StarDog from SnarlTemplate to get process execution by id");
+        String resourceUri = "http://www.example.com/conference/processes/" + processId + "/executions/" + processExecutionId;
+        String queryString = "SELECT ?p ?o WHERE { <" + resourceUri + "> ?p ?o. }";
+
+        return snarlTemplate.query(queryString, new RowMapper<Triple>() {
+            @Override
+            public Triple mapRow(BindingSet bindingSet) {
+                return new Triple(
+                        resourceUri,
+                        requireNonNull(bindingSet.get("p")).toString(),
+                        requireNonNull(bindingSet.get("o")).toString()
+                );
+            }
+        });
+    }
+
     public List<Triple> getProcessById(String processId) {
         logger.info("Calling StarDog from SnarlTemplate to get process by id");
         String resourceUri = "http://purl.org/saeg/ontologies/bpeo/processes/" + processId;

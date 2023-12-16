@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -23,6 +25,22 @@ public class ProcessExecutionController {
 
     @Autowired
     private ProcessExecutionApplication processExecutionApplication;
+
+    @GetMapping("/{processExecutionId}")
+    public String get(
+            @RequestHeader("Accept") String accept,
+            @PathVariable String processId,
+            @PathVariable String processExecutionId
+    ) {
+        String format = (accept != null && accept.equals("text/turtle")) ? "TURTLE" : "RDF/XML-ABBREV";
+
+        logger.info("Getting process execution");
+
+        OutputStream stream = new ByteArrayOutputStream() ;
+        processExecutionApplication.getById(processId, processExecutionId).write(stream, format);
+
+        return stream.toString();
+    }
 
     @PostMapping
     public ResponseEntity save(

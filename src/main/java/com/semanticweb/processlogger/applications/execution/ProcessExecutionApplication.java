@@ -4,6 +4,10 @@ import com.semanticweb.processlogger.applications.execution.resources.ProcessExe
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.repositories.TripleRepository;
 import com.semanticweb.processlogger.repositories.resources.Triple;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +37,23 @@ public class ProcessExecutionApplication {
 
     @Autowired
     private TripleRepository repository;
+
+    public Model getById(String processId, String processExecutionId) {
+        logger.info("Calling repository to get process execution by id");
+
+        List<Triple> triples = repository.getProcessExecutionById(processId, processExecutionId);
+
+        Model model = ModelFactory.createDefaultModel();
+        triples.forEach(
+                triple -> {
+                    Resource resource = model.createResource(triple.getResource());
+                    Property property = model.createProperty(triple.getProperty());
+                    model.add(resource, property, triple.getValue());
+                }
+        );
+
+        return model;
+    }
 
     public ResourceCreationResponse save(
             ProcessExecution processExecution,

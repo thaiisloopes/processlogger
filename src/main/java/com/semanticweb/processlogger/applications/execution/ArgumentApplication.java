@@ -5,6 +5,9 @@ import com.semanticweb.processlogger.applications.execution.resources.Argument;
 import com.semanticweb.processlogger.controllers.resources.ResourceCreationResponse;
 import com.semanticweb.processlogger.repositories.TripleRepository;
 import com.semanticweb.processlogger.repositories.resources.Triple;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,24 @@ public class ArgumentApplication {
 
     @Autowired
     private TripleRepository repository;
+
+    public Model getById(String argumentId) {
+        logger.info("Calling repository to get argument by id");
+
+        List<Triple> triples = repository.getArgumentById(argumentId);
+
+        Model model = ModelFactory.createDefaultModel();
+        triples.forEach(
+                triple -> {
+                    org.apache.jena.rdf.model.Resource resource = model.createResource(triple.getResource());
+                    Property property = model.createProperty(triple.getProperty());
+                    model.add(resource, property, triple.getValue());
+                }
+        );
+
+        return model;
+    }
+
 
     public ResourceCreationResponse save(Argument argument) throws URISyntaxException {
         logger.info("Calling repository to save an argument");
